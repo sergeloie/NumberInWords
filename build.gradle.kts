@@ -2,6 +2,10 @@ plugins {
     application
 }
 
+application {
+    mainClass.set("ru.anseranser.Main")
+}
+
 group = "ru.anseranser"
 version = "1.0-SNAPSHOT"
 
