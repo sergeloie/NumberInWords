@@ -2,6 +2,8 @@ package ru.anseranser.cases;
 
 import lombok.Getter;
 
+import java.util.Arrays;
+
 @Getter
 public class Prepositional implements Case {
     public final String[] billions = {
@@ -106,16 +108,6 @@ public class Prepositional implements Case {
             "восьми",
             "девяти"
     };
-    public final String[] neuterOnes = {
-            "",
-            "одном",
-            "двух",
-            "трёх",
-            "четырёх",
-            "пяти",
-            "шести",
-            "семи",
-            "восьми",
-            "девяти"
-    };
+
+    public final String[] neuterOnes = masculineOnes;
 }

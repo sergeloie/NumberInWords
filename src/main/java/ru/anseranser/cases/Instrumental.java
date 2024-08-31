@@ -94,6 +94,7 @@ public class Instrumental implements Case {
             "восемью",
             "девятью"
     };
+
     public final String[] feminineOnes = {
             "",
             "одной",
@@ -106,16 +107,6 @@ public class Instrumental implements Case {
             "восемью",
             "девятью"
     };
-    public final String[] neuterOnes = {
-            "",
-            "одним",
-            "двумя",
-            "тремя",
-            "четырьмя",
-            "пятью",
-            "шестью",
-            "семью",
-            "восемью",
-            "девятью"
-    };
+
+    public final String[] neuterOnes = masculineOnes;
 }

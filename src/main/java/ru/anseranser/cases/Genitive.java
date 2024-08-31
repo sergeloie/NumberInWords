@@ -82,7 +82,31 @@ public class Genitive implements Case {
             "девятнадцати"
     };
 
-    public final String[] masculineOnes = {"", "одного", "двух", "трёх", "четырёх", "пяти", "шести", "семи", "восьми", "девяти"};
-    public final String[] feminineOnes = {"", "одной", "двух", "трёх", "четырёх", "пяти", "шести", "семи", "восьми", "девяти"};
-    public final String[] neuterOnes = {"", "одного", "двух", "трёх", "четырёх", "пяти", "шести", "семи", "восьми", "девяти"};
+    public final String[] masculineOnes = {
+            "",
+            "одного",
+            "двух",
+            "трёх",
+            "четырёх",
+            "пяти",
+            "шести",
+            "семи",
+            "восьми",
+            "девяти"
+    };
+
+    public final String[] feminineOnes = {
+            "",
+            "одной",
+            "двух",
+            "трёх",
+            "четырёх",
+            "пяти",
+            "шести",
+            "семи",
+            "восьми",
+            "девяти"
+    };
+
+    public final String[] neuterOnes = masculineOnes;
 }

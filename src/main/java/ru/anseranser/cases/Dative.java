@@ -82,8 +82,32 @@ public class Dative implements Case {
             "девятнадцати"
     };
 
-    public final String[] masculineOnes = {"", "одному", "двум", "трём", "четырём", "пяти", "шести", "семи", "восьми", "девяти"};
-    public final String[] feminineOnes = {"", "одной", "двум", "трём", "четырём", "пяти", "шести", "семи", "восьми", "девяти"};
-    public final String[] neuterOnes = {"", "одному", "двум", "трём", "четырём", "пяти", "шести", "семи", "восьми", "девяти"};
+    public final String[] masculineOnes = {
+            "",
+            "одному",
+            "двум",
+            "трём",
+            "четырём",
+            "пяти",
+            "шести",
+            "семи",
+            "восьми",
+            "девяти"
+    };
+
+    public final String[] feminineOnes = {
+            "",
+            "одной",
+            "двум",
+            "трём",
+            "четырём",
+            "пяти",
+            "шести",
+            "семи",
+            "восьми",
+            "девяти"
+    };
+
+    public final String[] neuterOnes = masculineOnes;
 }
 
