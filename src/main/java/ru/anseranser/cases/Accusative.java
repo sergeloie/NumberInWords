@@ -3,7 +3,7 @@ package ru.anseranser.cases;
 import lombok.Getter;
 
 @Getter
-public class Nominative implements Case {
+public class Accusative implements Case {
     public final String[] billions = {
             "миллиардов",
             "миллиард",
@@ -32,7 +32,7 @@ public class Nominative implements Case {
 
     public final String[] thousands = {
             "тысяч",
-            "тысяча",
+            "тысячу",
             "тысячи",
             "тысячи",
             "тысячи",
@@ -83,6 +83,7 @@ public class Nominative implements Case {
     };
 
     public final String[] masculineOnes = {"", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"};
-    public final String[] feminineOnes = {"", "одна", "две", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"};
+    public final String[] feminineOnes = {"", "одну", "две", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"};
     public final String[] neuterOnes = {"", "одно", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"};
+
 }

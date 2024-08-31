@@ -9,7 +9,7 @@ public class Triset {
     private int number;
     private int hundreds;
     private int tens;
-//    private int teens;
+    private int teens;
     private int ones;
 
     public Triset(int number) {
@@ -20,12 +20,11 @@ public class Triset {
         int h = number / 100;
         this.hundreds = h;
         int hRemainder = number % 100;
-        if (hRemainder <= 19 && hRemainder != 10) {
-            this.ones = hRemainder;
+        if (hRemainder >= 11 && hRemainder <= 19) {
+            this.teens = hRemainder;
         } else {
             this.tens = hRemainder / 10;
             this.ones = hRemainder % 10;
         }
-
     }
 }
