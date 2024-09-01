@@ -1,124 +1,45 @@
 package ru.anseranser.cases;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
+
+import java.io.IOException;
 
 @Getter
 public class Accusative implements Case {
-    private final String[] billions = {
-            "миллиардов",
-            "миллиард",
-            "миллиарда",
-            "миллиарда",
-            "миллиарда",
-            "миллиардов",
-            "миллиардов",
-            "миллиардов",
-            "миллиардов",
-            "миллиардов"
-    };
 
-    private final String[] millions = {
-            "миллионов",
-            "миллион",
-            "миллиона",
-            "миллиона",
-            "миллиона",
-            "миллионов",
-            "миллионов",
-            "миллионов",
-            "миллионов",
-            "миллионов"
-    };
+    private final String[] billions;
+    private final String[] millions;
+    private final String[] thousands;
+    private final String[] hundreds;
+    private final String[] tens;
+    private final String[] teens;
+    private final String[] masculineOnes;
+    private final String[] feminineOnes;
+    private final String[] neuterOnes;
 
-    private final String[] thousands = {
-            "тысяч",
-            "тысячу",
-            "тысячи",
-            "тысячи",
-            "тысячи",
-            "тысяч",
-            "тысяч",
-            "тысяч",
-            "тысяч",
-            "тысяч"
-    };
+    public Accusative() {
 
-    private final String[] hundreds = {
-            "",
-            "сто",
-            "двести",
-            "триста",
-            "четыреста",
-            "пятьсот",
-            "шестьсот",
-            "семьсот",
-            "восемьсот",
-            "девятьсот"
-    };
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode;
+        try {
+            jsonNode = objectMapper.readTree(this.getClass()
+                    .getClassLoader()
+                    .getResourceAsStream("cases/accusative.json"));
+        } catch (IOException e) {
+            throw new RuntimeException("File with Accusative case definition not found");
+        }
 
-    private final String[] tens = {
-            "",
-            "десять",
-            "двадцать",
-            "тридцать",
-            "сорок",
-            "пятьдесят",
-            "шестьдесят",
-            "семьдесят",
-            "восемьдесят",
-            "девяносто"
-    };
-
-    private final String[] teens = {
-            "", "", "", "", "", "", "", "", "", "", "",
-            "одиннадцать",
-            "двенадцать",
-            "тринадцать",
-            "четырнадцать",
-            "пятнадцать",
-            "шестнадцать",
-            "семнадцать",
-            "восемнадцать",
-            "девятнадцать"
-    };
-
-    private final String[] masculineOnes = {
-            "ноль",
-            "один",
-            "два",
-            "три",
-            "четыре",
-            "пять",
-            "шесть",
-            "семь",
-            "восемь",
-            "девять"
-    };
-
-    private final String[] feminineOnes = {
-            "ноль",
-            "одну",
-            "две",
-            "три",
-            "четыре",
-            "пять",
-            "шесть",
-            "семь",
-            "восемь",
-            "девять"
-    };
-
-    private final String[] neuterOnes = {
-            "ноль",
-            "одно",
-            "два",
-            "три",
-            "четыре",
-            "пять",
-            "шесть",
-            "семь",
-            "восемь",
-            "девять"
-    };
+        this.billions = objectMapper.convertValue(jsonNode.get("billions"), String[].class);
+        this.millions = objectMapper.convertValue(jsonNode.get("millions"), String[].class);
+        this.thousands = objectMapper.convertValue(jsonNode.get("thousands"), String[].class);
+        this.hundreds = objectMapper.convertValue(jsonNode.get("hundreds"), String[].class);
+        this.tens = objectMapper.convertValue(jsonNode.get("tens"), String[].class);
+        this.teens = objectMapper.convertValue(jsonNode.get("teens"), String[].class);
+        this.masculineOnes = objectMapper.convertValue(jsonNode.get("masculineOnes"), String[].class);
+        this.feminineOnes = objectMapper.convertValue(jsonNode.get("feminineOnes"), String[].class);
+        this.neuterOnes = objectMapper.convertValue(jsonNode.get("neuterOnes"), String[].class);
+    }
 
 }

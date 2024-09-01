@@ -90,7 +90,7 @@ class NumberControllerTest {
 
     @Test
     public void dativeTest() throws Exception {
-        Resource resource = resourceLoader.getResource("classpath:json/101311422980.json");
+        Resource resource = resourceLoader.getResource("classpath:json/101311422981.json");
         String request = new String(Files.readAllBytes(Paths.get(resource.getURI())));
 
         var result = mockMvc.perform(post("/convert")
@@ -101,13 +101,13 @@ class NumberControllerTest {
                 .getContentAsString();
 
         assertThatJson(result).and(
-                v -> v.node("number").isEqualTo(101311422980L),
+                v -> v.node("number").isEqualTo(101311422981L),
                 v -> v.node("gender").isEqualTo("NEUTER"),
                 v -> v.node("case").isEqualTo("DATIVE"),
                 v -> v.node("numberInWords").isEqualTo("ста одному миллиарду "
                         + "трёмстам одиннадцати миллионам "
                         + "четырёмстам двадцати двум тысячам "
-                        + "девятистам восьмидесяти")
+                        + "девятистам восьмидесяти одному")
         );
     }
 
