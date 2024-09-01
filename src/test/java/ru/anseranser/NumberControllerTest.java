@@ -26,7 +26,7 @@ class NumberControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void oneTest() throws Exception {
+    void oneTest() throws Exception {
         Resource resource = resourceLoader.getResource("classpath:json/1.json");
         String request = new String(Files.readAllBytes(Paths.get(resource.getURI())));
 
@@ -46,7 +46,7 @@ class NumberControllerTest {
     }
 
     @Test
-    public void zeroTest() throws Exception {
+    void zeroTest() throws Exception {
         Resource resource = resourceLoader.getResource("classpath:json/0.json");
         String request = new String(Files.readAllBytes(Paths.get(resource.getURI())));
 
@@ -66,7 +66,7 @@ class NumberControllerTest {
     }
 
     @Test
-    public void allNumbersTest() throws Exception {
+    void allNumbersTest() throws Exception {
         Resource resource = resourceLoader.getResource("classpath:json/111987654321.json");
         String request = new String(Files.readAllBytes(Paths.get(resource.getURI())));
 
@@ -89,7 +89,7 @@ class NumberControllerTest {
     }
 
     @Test
-    public void dativeTest() throws Exception {
+    void dativeTest() throws Exception {
         Resource resource = resourceLoader.getResource("classpath:json/101311422981.json");
         String request = new String(Files.readAllBytes(Paths.get(resource.getURI())));
 
@@ -112,7 +112,7 @@ class NumberControllerTest {
     }
 
     @Test
-    public void accusativeTest() throws Exception {
+    void accusativeTest() throws Exception {
         Resource resource = resourceLoader.getResource("classpath:json/999999999999.json");
         String request = new String(Files.readAllBytes(Paths.get(resource.getURI())));
 
@@ -135,7 +135,7 @@ class NumberControllerTest {
     }
 
     @Test
-    public void prepositionalTest() throws Exception {
+    void prepositionalTest() throws Exception {
         Resource resource = resourceLoader.getResource("classpath:json/1001001001.json");
         String request = new String(Files.readAllBytes(Paths.get(resource.getURI())));
 
@@ -153,10 +153,4 @@ class NumberControllerTest {
                 v -> v.node("numberInWords").isEqualTo("одном миллиарде одном миллионе одной тысяче одной")
         );
     }
-
-
-
-
-
-
 }

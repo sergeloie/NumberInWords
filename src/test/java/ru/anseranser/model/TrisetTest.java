@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class TrisetTest {
 
     @Test
-    public void testTrisetConstructorValidInput() {
+    void testTrisetConstructorValidInput() {
         Triset triset = new Triset(123);
         assertEquals(123, triset.getNumber());
         assertEquals(1, triset.getHundreds());
@@ -19,7 +19,7 @@ public class TrisetTest {
     }
 
     @Test
-    public void testTrisetConstructorWithTeens() {
+    void testTrisetConstructorWithTeens() {
         Triset triset = new Triset(215);
         assertEquals(215, triset.getNumber());
         assertEquals(2, triset.getHundreds());
@@ -29,7 +29,7 @@ public class TrisetTest {
     }
 
     @Test
-    public void testTrisetConstructorZero() {
+    void testTrisetConstructorZero() {
         Triset triset = new Triset(0);
         assertEquals(0, triset.getNumber());
         assertEquals(0, triset.getHundreds());
@@ -39,7 +39,7 @@ public class TrisetTest {
     }
 
     @Test
-    public void testTrisetConstructorMaxValue() {
+    void testTrisetConstructorMaxValue() {
         Triset triset = new Triset(999);
         assertEquals(999, triset.getNumber());
         assertEquals(9, triset.getHundreds());
@@ -49,12 +49,12 @@ public class TrisetTest {
     }
 
     @Test
-    public void testTrisetConstructorNegativeNumber() {
+    void testTrisetConstructorNegativeNumber() {
         assertThrows(NumberOutOfBoundException.class, () -> new Triset(-1));
     }
 
     @Test
-    public void testTrisetConstructorNumberTooLarge() {
+    void testTrisetConstructorNumberTooLarge() {
         assertThrows(NumberOutOfBoundException.class, () -> new Triset(1000));
     }
 }
