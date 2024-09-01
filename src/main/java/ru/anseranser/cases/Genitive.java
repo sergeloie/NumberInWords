@@ -3,6 +3,7 @@ package ru.anseranser.cases;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
+import ru.anseranser.exception.CaseFileNotFound;
 
 import java.io.IOException;
 
@@ -28,7 +29,7 @@ public class Genitive implements Case {
                     .getClassLoader()
                     .getResourceAsStream("cases/genitive.json"));
         } catch (IOException e) {
-            throw new RuntimeException("File with Genitive case definition not found");
+            throw new CaseFileNotFound("File with Genitive case definition not found");
         }
 
         this.billions = objectMapper.convertValue(jsonNode.get("billions"), String[].class);
