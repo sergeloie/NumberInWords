@@ -19,15 +19,15 @@ public class NumberInputDTO {
 
     @Min(0)
     @Max(999_999_999_999L)
-    long number;
+    private long number;
 
     @NotNull
     @JsonSetter(nulls = Nulls.SKIP)
     @JsonProperty("case")
-    Cases theCase = Cases.NOMINATIVE;
+    private Cases theCase = Cases.NOMINATIVE;
 
     @NotNull
     @JsonSetter(nulls = Nulls.SKIP)
-    Genders gender = Genders.MASCULINE;
+    private Genders gender = Genders.MASCULINE;
 
 }

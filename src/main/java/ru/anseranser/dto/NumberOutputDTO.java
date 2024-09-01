@@ -10,10 +10,10 @@ import ru.anseranser.enums.Genders;
 @Getter
 public class NumberOutputDTO {
 
-    long number;
+    private long number;
     @JsonProperty("case")
-    Cases theCase;
-    Genders gender;
-    String numberInWords;
+    private Cases theCase;
+    private Genders gender;
+    private String numberInWords;
 
 }
