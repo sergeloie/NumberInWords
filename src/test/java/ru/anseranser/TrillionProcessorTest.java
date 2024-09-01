@@ -14,7 +14,7 @@ class TrillionProcessorTest {
 
     @Test
     void testZero() {
-        assertEquals("", processor.toWords(0, NOMINATIVE, MASCULINE));
+        assertEquals("ноль", processor.toWords(0, NOMINATIVE, MASCULINE));
     }
 
     @Test
