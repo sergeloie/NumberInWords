@@ -3,7 +3,6 @@ package ru.anseranser.cases;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
-import lombok.SneakyThrows;
 
 import java.io.IOException;
 
@@ -23,7 +22,7 @@ public class Nominative implements Case {
     public Nominative() {
 
         ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = null;
+        JsonNode jsonNode;
         try {
             jsonNode = objectMapper.readTree(this.getClass()
                     .getClassLoader()
