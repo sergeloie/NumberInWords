@@ -30,6 +30,7 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.11.0"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.11.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("net.javacrumbs.json-unit:json-unit-assertj:3.2.7")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.11.0")
 }
 
