@@ -6,19 +6,14 @@ plugins {
     id("io.spring.dependency-management") version "1.1.6"
 }
 
-application {
-    mainClass.set("ru.anseranser.Main")
-}
-
+group = "ru.anseranser"
+version = "1.0-SNAPSHOT"
 
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
 }
-
-group = "ru.anseranser"
-version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -38,13 +33,13 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.11.0")
 }
 
-tasks.jacocoTestReport {
+tasks.named<JacocoReport>("jacocoTestReport") {
     reports {
-        xml.required = true
-        html.outputLocation = layout.buildDirectory.dir("jacocoHtml")
+        xml.required.set(true)
+        html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
     }
 }
 
-tasks.test {
+tasks.named<Test>("test") {
     useJUnitPlatform()
 }
