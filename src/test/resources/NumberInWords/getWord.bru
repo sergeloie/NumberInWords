@@ -4,8 +4,16 @@ meta {
   seq: 2
 }
 
-get {
+post {
   url: http://127.0.0.1:13923/convert
-  body: none
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "number": 0,
+    "gender": "MASCULINE",
+    "case": "GENITIVE"
+  }
 }
