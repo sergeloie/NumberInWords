@@ -3,6 +3,7 @@ package ru.anseranser.cases;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
+import ru.anseranser.exception.CaseFileNotFound;
 
 import java.io.IOException;
 
@@ -28,7 +29,7 @@ public class Nominative implements Case {
                     .getClassLoader()
                     .getResourceAsStream("cases/nominative.json"));
         } catch (IOException e) {
-            throw new RuntimeException("File with Nominative case definition not found");
+            throw new CaseFileNotFound("File with Nominative case definition not found");
         }
 
         this.billions = objectMapper.convertValue(jsonNode.get("billions"), String[].class);
