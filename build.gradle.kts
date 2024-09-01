@@ -4,6 +4,8 @@ plugins {
     checkstyle
     id("org.springframework.boot") version "3.3.2"
     id("io.spring.dependency-management") version "1.1.6"
+    id("org.sonarqube") version "4.4.1.3373"
+
 }
 
 group = "ru.anseranser"
@@ -35,13 +37,21 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.11.0")
 }
 
-tasks.named<JacocoReport>("jacocoTestReport") {
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
+
+tasks.jacocoTestReport {
     reports {
-        xml.required.set(true)
-        html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
+        xml.required = true
+        html.outputLocation = layout.buildDirectory.dir("jacocoHtml")
     }
 }
 
-tasks.named<Test>("test") {
-    useJUnitPlatform()
+sonar {
+    properties {
+        property("sonar.projectKey", "sergeloie_NumberInWords")
+        property("sonar.organization", "sergeloie")
+        property("sonar.host.url", "https://sonarcloud.io")
+    }
 }
