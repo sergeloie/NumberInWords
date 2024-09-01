@@ -26,7 +26,7 @@ class NumberControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void zeroTest() throws Exception {
+    public void oneTest() throws Exception {
         Resource resource = resourceLoader.getResource("classpath:json/1.json");
         String request = new String(Files.readAllBytes(Paths.get(resource.getURI())));
 
@@ -44,4 +44,46 @@ class NumberControllerTest {
                 v -> v.node("numberInWords").isEqualTo("один")
         );
     }
+
+    @Test
+    public void zeroTest() throws Exception {
+        Resource resource = resourceLoader.getResource("classpath:json/0.json");
+        String request = new String(Files.readAllBytes(Paths.get(resource.getURI())));
+
+        var result = mockMvc.perform(post("/convert")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request)).andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        assertThatJson(result).and(
+                v -> v.node("number").isEqualTo(0),
+                v -> v.node("gender").isEqualTo("MASCULINE"),
+                v -> v.node("case").isEqualTo("NOMINATIVE"),
+                v -> v.node("numberInWords").isEqualTo("ноль")
+        );
+    }
+
+    @Test
+    public void allNumbersTest() throws Exception {
+        Resource resource = resourceLoader.getResource("classpath:json/111987654321.json");
+        String request = new String(Files.readAllBytes(Paths.get(resource.getURI())));
+
+        var result = mockMvc.perform(post("/convert")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request)).andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        assertThatJson(result).and(
+                v -> v.node("number").isEqualTo(111987654321L),
+                v -> v.node("gender").isEqualTo("FEMININE"),
+                v -> v.node("case").isEqualTo("INSTRUMENTAL"),
+                v -> v.node("numberInWords").isEqualTo("ста одиннадцатью миллиардами девятьюстами восьмьюдесятью семью миллионами шестьюстами пятьюдесятью четырьмя тысячами тремястами двадцатью одной")
+        );
+    }
+
+
 }
