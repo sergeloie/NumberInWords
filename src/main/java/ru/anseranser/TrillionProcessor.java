@@ -50,11 +50,11 @@ public class TrillionProcessor {
         sb.append(triset.getHundreds() == 0 ? "" : theCase.getHundreds()[triset.getHundreds()] + " ");
         sb.append(triset.getTeens() == 0 ? "" : theCase.getTeens()[triset.getTeens()] + " ");
         sb.append(triset.getTens() == 0 ? "" : theCase.getTens()[triset.getTens()] + " ");
-        sb.append(triset.getOnes() == 0 ? "" :
-                switch (gender) {
-                    case MASCULINE -> theCase.getMasculineOnes()[triset.getOnes()] + " ";
-                    case FEMININE -> theCase.getFeminineOnes()[triset.getOnes()] + " ";
-                    case NEUTER -> theCase.getNeuterOnes()[triset.getOnes()] + " ";
+        sb.append(triset.getOnes() == 0 ? ""
+                : switch (gender) {
+            case MASCULINE -> theCase.getMasculineOnes()[triset.getOnes()] + " ";
+            case FEMININE -> theCase.getFeminineOnes()[triset.getOnes()] + " ";
+            case NEUTER -> theCase.getNeuterOnes()[triset.getOnes()] + " ";
 
         });
         return sb.toString();

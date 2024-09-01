@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class Nominative implements Case {
-    public final String[] billions = {
+    private final String[] billions = {
             "миллиардов",
             "миллиард",
             "миллиарда",
@@ -17,7 +17,7 @@ public class Nominative implements Case {
             "миллиардов"
     };
 
-    public final String[] millions = {
+    private final String[] millions = {
             "миллионов",
             "миллион",
             "миллиона",
@@ -30,7 +30,7 @@ public class Nominative implements Case {
             "миллионов"
     };
 
-    public final String[] thousands = {
+    private final String[] thousands = {
             "тысяч",
             "тысяча",
             "тысячи",
@@ -43,7 +43,7 @@ public class Nominative implements Case {
             "тысяч"
     };
 
-    public final String[] hundreds = {
+    private final String[] hundreds = {
             "",
             "сто",
             "двести",
@@ -56,7 +56,7 @@ public class Nominative implements Case {
             "девятьсот"
     };
 
-    public final String[] tens = {
+    private final String[] tens = {
             "",
             "десять",
             "двадцать",
@@ -69,7 +69,7 @@ public class Nominative implements Case {
             "девяносто"
     };
 
-    public final String[] teens = {
+    private final String[] teens = {
             "", "", "", "", "", "", "", "", "", "", "",
             "одиннадцать",
             "двенадцать",
@@ -82,7 +82,7 @@ public class Nominative implements Case {
             "девятнадцать"
     };
 
-    public final String[] masculineOnes = {
+    private final String[] masculineOnes = {
             "",
             "один",
             "два",
@@ -95,7 +95,7 @@ public class Nominative implements Case {
             "девять"
     };
 
-    public final String[] feminineOnes = {
+    private final String[] feminineOnes = {
             "",
             "одна",
             "две",
@@ -108,7 +108,7 @@ public class Nominative implements Case {
             "девять"
     };
 
-    public final String[] neuterOnes = {
+    private final String[] neuterOnes = {
             "",
             "одно",
             "два",

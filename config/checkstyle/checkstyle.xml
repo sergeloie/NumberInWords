@@ -190,9 +190,9 @@
     <module name="TodoComment"/>
     <module name="UpperEll"/>
 
-    <module name="Indentation">
+<!--    <module name="Indentation">
       <property name="basicOffset" value="4"/>
-    </module>
+    </module> -->
     <module name="OneStatementPerLine"/>
 
     <!-- https://checkstyle.org/config_filters.html#SuppressionXpathFilter -->

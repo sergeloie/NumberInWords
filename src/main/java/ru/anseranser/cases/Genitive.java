@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class Genitive implements Case {
-    public final String[] billions = {
+    private final String[] billions = {
             "миллиардов",
             "миллиарда",
             "миллиардов",
@@ -17,7 +17,7 @@ public class Genitive implements Case {
             "миллиардов"
     };
 
-    public final String[] millions = {
+    private final String[] millions = {
             "миллионов",
             "миллиона",
             "миллионов",
@@ -30,7 +30,7 @@ public class Genitive implements Case {
             "миллионов"
     };
 
-    public final String[] thousands = {
+    private final String[] thousands = {
             "тысяч",
             "тысячи",
             "тысяч",
@@ -43,7 +43,7 @@ public class Genitive implements Case {
             "тысяч"
     };
 
-    public final String[] hundreds = {
+    private final String[] hundreds = {
             "",
             "ста",
             "двухсот",
@@ -56,7 +56,7 @@ public class Genitive implements Case {
             "девятисот"
     };
 
-    public final String[] tens = {
+    private final String[] tens = {
             "",
             "десяти",
             "двадцати",
@@ -69,7 +69,7 @@ public class Genitive implements Case {
             "девяноста"
     };
 
-    public final String[] teens = {
+    private final String[] teens = {
             "", "", "", "", "", "", "", "", "", "", "",
             "одиннадцати",
             "двенадцати",
@@ -82,7 +82,7 @@ public class Genitive implements Case {
             "девятнадцати"
     };
 
-    public final String[] masculineOnes = {
+    private final String[] masculineOnes = {
             "",
             "одного",
             "двух",
@@ -95,7 +95,7 @@ public class Genitive implements Case {
             "девяти"
     };
 
-    public final String[] feminineOnes = {
+    private final String[] feminineOnes = {
             "",
             "одной",
             "двух",
@@ -108,5 +108,5 @@ public class Genitive implements Case {
             "девяти"
     };
 
-    public final String[] neuterOnes = masculineOnes;
+    private final String[] neuterOnes = masculineOnes;
 }
