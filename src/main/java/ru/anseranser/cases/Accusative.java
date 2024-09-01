@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class Accusative implements Case {
-    public final String[] billions = {
+    private final String[] billions = {
             "миллиардов",
             "миллиард",
             "миллиарда",
@@ -17,7 +17,7 @@ public class Accusative implements Case {
             "миллиардов"
     };
 
-    public final String[] millions = {
+    private final String[] millions = {
             "миллионов",
             "миллион",
             "миллиона",
@@ -30,7 +30,7 @@ public class Accusative implements Case {
             "миллионов"
     };
 
-    public final String[] thousands = {
+    private final String[] thousands = {
             "тысяч",
             "тысячу",
             "тысячи",
@@ -43,7 +43,7 @@ public class Accusative implements Case {
             "тысяч"
     };
 
-    public final String[] hundreds = {
+    private final String[] hundreds = {
             "",
             "сто",
             "двести",
@@ -56,7 +56,7 @@ public class Accusative implements Case {
             "девятьсот"
     };
 
-    public final String[] tens = {
+    private final String[] tens = {
             "",
             "десять",
             "двадцать",
@@ -69,7 +69,7 @@ public class Accusative implements Case {
             "девяносто"
     };
 
-    public final String[] teens = {
+    private final String[] teens = {
             "", "", "", "", "", "", "", "", "", "", "",
             "одиннадцать",
             "двенадцать",
@@ -82,8 +82,43 @@ public class Accusative implements Case {
             "девятнадцать"
     };
 
-    public final String[] masculineOnes = {"", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"};
-    public final String[] feminineOnes = {"", "одну", "две", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"};
-    public final String[] neuterOnes = {"", "одно", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"};
+    private final String[] masculineOnes = {
+            "ноль",
+            "один",
+            "два",
+            "три",
+            "четыре",
+            "пять",
+            "шесть",
+            "семь",
+            "восемь",
+            "девять"
+    };
+
+    private final String[] feminineOnes = {
+            "ноль",
+            "одну",
+            "две",
+            "три",
+            "четыре",
+            "пять",
+            "шесть",
+            "семь",
+            "восемь",
+            "девять"
+    };
+
+    private final String[] neuterOnes = {
+            "ноль",
+            "одно",
+            "два",
+            "три",
+            "четыре",
+            "пять",
+            "шесть",
+            "семь",
+            "восемь",
+            "девять"
+    };
 
 }

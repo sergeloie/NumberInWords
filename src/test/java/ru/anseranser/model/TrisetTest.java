@@ -1,6 +1,7 @@
 package ru.anseranser.model;
 
 import org.junit.jupiter.api.Test;
+import ru.anseranser.exception.NumberOutOfBoundException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -49,11 +50,11 @@ public class TrisetTest {
 
     @Test
     public void testTrisetConstructorNegativeNumber() {
-        assertThrows(RuntimeException.class, () -> new Triset(-1));
+        assertThrows(NumberOutOfBoundException.class, () -> new Triset(-1));
     }
 
     @Test
     public void testTrisetConstructorNumberTooLarge() {
-        assertThrows(RuntimeException.class, () -> new Triset(1000));
+        assertThrows(NumberOutOfBoundException.class, () -> new Triset(1000));
     }
 }

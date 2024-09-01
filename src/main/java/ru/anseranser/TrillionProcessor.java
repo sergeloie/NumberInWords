@@ -13,9 +13,12 @@ import static ru.anseranser.enums.Genders.MASCULINE;
 public class TrillionProcessor {
 
     public String toWords(long number, Cases caseOne, Genders gender) {
+        Case theCase = CaseFactory.createCase(caseOne);
+        if (number == 0) {
+            return theCase.getMasculineOnes()[0];
+        }
         Trillion trillion = new Trillion(number);
         StringBuilder sb = new StringBuilder();
-        Case theCase = CaseFactory.createCase(caseOne);
         if (trillion.getBillions().getNumber() != 0) {
             Triset b = trillion.getBillions();
             sb.append(buildTrio(b, theCase, MASCULINE));
@@ -50,11 +53,11 @@ public class TrillionProcessor {
         sb.append(triset.getHundreds() == 0 ? "" : theCase.getHundreds()[triset.getHundreds()] + " ");
         sb.append(triset.getTeens() == 0 ? "" : theCase.getTeens()[triset.getTeens()] + " ");
         sb.append(triset.getTens() == 0 ? "" : theCase.getTens()[triset.getTens()] + " ");
-        sb.append(triset.getOnes() == 0 ? "" :
-                switch (gender) {
-                    case MASCULINE -> theCase.getMasculineOnes()[triset.getOnes()] + " ";
-                    case FEMININE -> theCase.getFeminineOnes()[triset.getOnes()] + " ";
-                    case NEUTER -> theCase.getNeuterOnes()[triset.getOnes()] + " ";
+        sb.append(triset.getOnes() == 0 ? ""
+                : switch (gender) {
+            case MASCULINE -> theCase.getMasculineOnes()[triset.getOnes()] + " ";
+            case FEMININE -> theCase.getFeminineOnes()[triset.getOnes()] + " ";
+            case NEUTER -> theCase.getNeuterOnes()[triset.getOnes()] + " ";
 
         });
         return sb.toString();

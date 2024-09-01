@@ -2,11 +2,9 @@ package ru.anseranser.cases;
 
 import lombok.Getter;
 
-import java.util.Arrays;
-
 @Getter
 public class Prepositional implements Case {
-    public final String[] billions = {
+    private final String[] billions = {
             "миллиардах",
             "миллиарде",
             "миллиардах",
@@ -19,7 +17,7 @@ public class Prepositional implements Case {
             "миллиардах"
     };
 
-    public final String[] millions = {
+    private final String[] millions = {
             "миллионах",
             "миллионе",
             "миллионах",
@@ -32,7 +30,7 @@ public class Prepositional implements Case {
             "миллионах"
     };
 
-    public final String[] thousands = {
+    private final String[] thousands = {
             "тысячах",
             "тысяче",
             "тысячах",
@@ -45,7 +43,7 @@ public class Prepositional implements Case {
             "тысячах"
     };
 
-    public final String[] hundreds = {
+    private final String[] hundreds = {
             "",
             "ста",
             "двухстах",
@@ -58,7 +56,7 @@ public class Prepositional implements Case {
             "девятистах"
     };
 
-    public final String[] tens = {
+    private final String[] tens = {
             "",
             "десяти",
             "двадцати",
@@ -71,7 +69,7 @@ public class Prepositional implements Case {
             "девяноста"
     };
 
-    public final String[] teens = {
+    private final String[] teens = {
             "", "", "", "", "", "", "", "", "", "", "",
             "одиннадцати",
             "двенадцати",
@@ -84,8 +82,8 @@ public class Prepositional implements Case {
             "девятнадцати"
     };
 
-    public final String[] masculineOnes = {
-            "",
+    private final String[] masculineOnes = {
+            "ноле",
             "одном",
             "двух",
             "трёх",
@@ -95,9 +93,9 @@ public class Prepositional implements Case {
             "семи",
             "восьми",
             "девяти"
-};
-    public final String[] feminineOnes = {
-            "",
+    };
+    private final String[] feminineOnes = {
+            "ноле",
             "одной",
             "двух",
             "трёх",
@@ -109,5 +107,5 @@ public class Prepositional implements Case {
             "девяти"
     };
 
-    public final String[] neuterOnes = masculineOnes;
+    private final String[] neuterOnes = masculineOnes;
 }

@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class Instrumental implements Case {
-    public final String[] billions = {
+    private final String[] billions = {
             "миллиардами",
             "миллиардом",
             "миллиардами",
@@ -17,7 +17,7 @@ public class Instrumental implements Case {
             "миллиардами"
     };
 
-    public final String[] millions = {
+    private final String[] millions = {
             "миллионами",
             "миллионом",
             "миллионами",
@@ -30,7 +30,7 @@ public class Instrumental implements Case {
             "миллионами"
     };
 
-    public final String[] thousands = {
+    private final String[] thousands = {
             "тысячами",
             "тысячей",
             "тысячами",
@@ -43,7 +43,7 @@ public class Instrumental implements Case {
             "тысячами"
     };
 
-    public final String[] hundreds = {
+    private final String[] hundreds = {
             "",
             "ста",
             "двумястами",
@@ -56,7 +56,7 @@ public class Instrumental implements Case {
             "девятьюстами"
     };
 
-    public final String[] tens = {
+    private final String[] tens = {
             "",
             "десятью",
             "двадцатью",
@@ -69,7 +69,7 @@ public class Instrumental implements Case {
             "девяноста"
     };
 
-    public final String[] teens = {
+    private final String[] teens = {
             "", "", "", "", "", "", "", "", "", "", "",
             "одиннадцатью",
             "двенадцатью",
@@ -82,8 +82,8 @@ public class Instrumental implements Case {
             "девятнадцатью"
     };
 
-    public final String[] masculineOnes = {
-            "",
+    private final String[] masculineOnes = {
+            "нолём",
             "одним",
             "двумя",
             "тремя",
@@ -95,8 +95,8 @@ public class Instrumental implements Case {
             "девятью"
     };
 
-    public final String[] feminineOnes = {
-            "",
+    private final String[] feminineOnes = {
+            "нолём",
             "одной",
             "двумя",
             "тремя",
@@ -108,5 +108,5 @@ public class Instrumental implements Case {
             "девятью"
     };
 
-    public final String[] neuterOnes = masculineOnes;
+    private final String[] neuterOnes = masculineOnes;
 }

@@ -1,10 +1,9 @@
 package ru.anseranser.model;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import ru.anseranser.exception.NumberOutOfBoundException;
 
 @Getter
-@EqualsAndHashCode
 public class Trillion {
     private Triset billions;
     private Triset millions;
@@ -13,7 +12,7 @@ public class Trillion {
 
     public Trillion(long number) {
         if (number < 0 || number > 999_999_999_999L) {
-            throw new RuntimeException("Number should be >= 0 and <= 999_999_999_999");
+            throw new NumberOutOfBoundException("Number should be >= 0 and <= 999_999_999_999");
         }
         long b = number / 1_000_000_000;
         long bRemainder = number % 1_000_000_000;

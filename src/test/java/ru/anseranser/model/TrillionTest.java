@@ -3,6 +3,7 @@ package ru.anseranser.model;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import ru.anseranser.exception.NumberOutOfBoundException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -29,12 +30,12 @@ class TrillionTest {
 
     @Test
     void testConstructorWithNegativeNumber() {
-        assertThrows(RuntimeException.class, () -> new Trillion(-1L));
+        assertThrows(NumberOutOfBoundException.class, () -> new Trillion(-1L));
     }
 
     @Test
     void testConstructorWithNumberExceedingMaximum() {
-        assertThrows(RuntimeException.class, () -> new Trillion(1000000000000L));
+        assertThrows(NumberOutOfBoundException.class, () -> new Trillion(1000000000000L));
     }
 
     @Test
