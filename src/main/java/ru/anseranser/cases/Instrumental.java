@@ -83,7 +83,7 @@ public class Instrumental implements Case {
     };
 
     private final String[] masculineOnes = {
-            "",
+            "нолём",
             "одним",
             "двумя",
             "тремя",
@@ -96,7 +96,7 @@ public class Instrumental implements Case {
     };
 
     private final String[] feminineOnes = {
-            "",
+            "нолём",
             "одной",
             "двумя",
             "тремя",

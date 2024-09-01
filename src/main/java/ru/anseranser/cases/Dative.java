@@ -83,7 +83,7 @@ public class Dative implements Case {
     };
 
     private final String[] masculineOnes = {
-            "",
+            "нолю",
             "одному",
             "двум",
             "трём",
@@ -96,7 +96,7 @@ public class Dative implements Case {
     };
 
     private final String[] feminineOnes = {
-            "",
+            "нолю",
             "одной",
             "двум",
             "трём",

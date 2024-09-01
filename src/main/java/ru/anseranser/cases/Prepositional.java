@@ -83,7 +83,7 @@ public class Prepositional implements Case {
     };
 
     private final String[] masculineOnes = {
-            "",
+            "ноле",
             "одном",
             "двух",
             "трёх",
@@ -95,7 +95,7 @@ public class Prepositional implements Case {
             "девяти"
     };
     private final String[] feminineOnes = {
-            "",
+            "ноле",
             "одной",
             "двух",
             "трёх",

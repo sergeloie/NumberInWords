@@ -13,9 +13,12 @@ import static ru.anseranser.enums.Genders.MASCULINE;
 public class TrillionProcessor {
 
     public String toWords(long number, Cases caseOne, Genders gender) {
+        Case theCase = CaseFactory.createCase(caseOne);
+        if (number == 0) {
+            return theCase.getMasculineOnes()[0];
+        }
         Trillion trillion = new Trillion(number);
         StringBuilder sb = new StringBuilder();
-        Case theCase = CaseFactory.createCase(caseOne);
         if (trillion.getBillions().getNumber() != 0) {
             Triset b = trillion.getBillions();
             sb.append(buildTrio(b, theCase, MASCULINE));

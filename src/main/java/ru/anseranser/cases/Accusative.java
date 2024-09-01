@@ -83,7 +83,7 @@ public class Accusative implements Case {
     };
 
     private final String[] masculineOnes = {
-            "",
+            "ноль",
             "один",
             "два",
             "три",
@@ -96,7 +96,7 @@ public class Accusative implements Case {
     };
 
     private final String[] feminineOnes = {
-            "",
+            "ноль",
             "одну",
             "две",
             "три",
@@ -109,7 +109,7 @@ public class Accusative implements Case {
     };
 
     private final String[] neuterOnes = {
-            "",
+            "ноль",
             "одно",
             "два",
             "три",

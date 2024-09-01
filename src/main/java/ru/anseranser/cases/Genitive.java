@@ -83,7 +83,7 @@ public class Genitive implements Case {
     };
 
     private final String[] masculineOnes = {
-            "",
+            "ноля",
             "одного",
             "двух",
             "трёх",
@@ -96,7 +96,7 @@ public class Genitive implements Case {
     };
 
     private final String[] feminineOnes = {
-            "",
+            "ноля",
             "одной",
             "двух",
             "трёх",
