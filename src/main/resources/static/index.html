@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Число в словах</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #input-container {
+            margin-bottom: 20px;
+        }
+        #input-container input[type="number"] {
+            width: 200px;
+            height: 30px;
+            font-size: 18px;
+            padding: 10px;
+        }
+        #input-container label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        #radios {
+            margin-bottom: 20px;
+        }
+        #radios label {
+            display: inline-block;
+            margin-right: 20px;
+        }
+        #output {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id="input-container">
+    <input type="number" id="number" placeholder="Введите число">
+    <label for="number">Число</label>
+</div>
+<div id="radioscase">
+    <label>
+        <input type="radio" name="case" value="NOMINATIVE" checked> Именительный
+    </label>
+    <label>
+        <input type="radio" name="case" value="GENITIVE"> Родительный
+    </label>
+    <label>
+        <input type="radio" name="case" value="DATIVE"> Дательный
+    </label>
+    <label>
+        <input type="radio" name="case" value="ACCUSATIVE"> Винительный
+    </label>
+    <label>
+        <input type="radio" name="case" value="INSTRUMENTAL"> Творительный
+    </label>
+    <label>
+        <input type="radio" name="case" value="PREPOSITIONAL"> Предложный
+    </label>
+</div>
+<div id="radiosgender">
+    <label>
+        <input type="radio" name="gender" value="MASCULINE" checked> Мужской
+    </label>
+    <label>
+        <input type="radio" name="gender" value="FEMININE"> Женский
+    </label>
+    <label>
+        <input type="radio" name="gender" value="NEUTER"> Средний
+    </label>
+</div>
+<button id="send-btn">Отправить</button>
+<div id="output"></div>
+
+<script>
+    const numberInput = document.getElementById('number');
+    const caseRadios = document.querySelectorAll('input[name="case"]');
+    const genderRadios = document.querySelectorAll('input[name="gender"]');
+    const sendBtn = document.getElementById('send-btn');
+    const outputDiv = document.getElementById('output');
+
+    sendBtn.addEventListener('click', () => {
+        const number = parseInt(numberInput.value);
+        if (isNaN(number) || number < 0 || number > 999999999999) {
+            alert('Введите число от 0 до 999999999999');
+            return;
+        }
+
+        const caseValue = Array.from(caseRadios).find(radio => radio.checked).value;
+        const genderValue = Array.from(genderRadios).find(radio => radio.checked).value;
+
+        const data = {
+            number,
+            case: caseValue,
+            gender: genderValue
+        };
+
+        fetch('/convert', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.numberInWords) {
+                    outputDiv.innerText = data.numberInWords;
+                } else {
+                    outputDiv.innerText = JSON.stringify(data);
+                }
+            })
+            .catch(error => console.error(error));
+    });
+</script>
+</body>
+</html>
