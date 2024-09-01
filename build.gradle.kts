@@ -1,3 +1,9 @@
+val lombokVersion = "1.18.34"
+val junitVersion = "5.11.0"
+val javacrumbsVersion = "3.4.1"
+val junitPlatformVersion = "1.11.0"
+val swaggerVersion = "2.6.0"
+
 plugins {
     application
     jacoco
@@ -7,8 +13,8 @@ plugins {
     id("org.sonarqube") version "4.4.1.3373"
 
 }
-
 group = "ru.anseranser"
+
 version = "1.0-SNAPSHOT"
 
 java {
@@ -24,17 +30,17 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$swaggerVersion")
 
-    compileOnly("org.projectlombok:lombok:1.18.34")
-    annotationProcessor("org.projectlombok:lombok:1.18.34")
+    compileOnly("org.projectlombok:lombok:$lombokVersion")
+    annotationProcessor("org.projectlombok:lombok:$lombokVersion")
 
-    testImplementation(platform("org.junit:junit-bom:5.11.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter:5.11.0")
+    testImplementation(platform("org.junit:junit-bom:$junitVersion"))
+    testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("net.javacrumbs.json-unit:json-unit-assertj:3.4.1")
+    testImplementation("net.javacrumbs.json-unit:json-unit-assertj:$javacrumbsVersion")
 
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.11.0")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:$junitPlatformVersion")
 }
 
 tasks.withType<Test> {

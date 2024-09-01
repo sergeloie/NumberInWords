@@ -6,7 +6,7 @@ import ru.anseranser.exception.NumberOutOfBoundException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class TrisetTest {
+class TrisetTest {
 
     @Test
     void testTrisetConstructorValidInput() {
