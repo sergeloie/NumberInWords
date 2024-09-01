@@ -20,13 +20,17 @@ public class Accusative implements Case {
     private final String[] feminineOnes;
     private final String[] neuterOnes;
 
-    @SneakyThrows(IOException.class)
     public Accusative() {
 
         ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(this.getClass()
-                .getClassLoader()
-                .getResourceAsStream("cases/accusative.json"));
+        JsonNode jsonNode = null;
+        try {
+            jsonNode = objectMapper.readTree(this.getClass()
+                    .getClassLoader()
+                    .getResourceAsStream("cases/accusative.json"));
+        } catch (IOException e) {
+            throw new RuntimeException("File with Accusative case definition not found");
+        }
 
         this.billions = objectMapper.convertValue(jsonNode.get("billions"), String[].class);
         this.millions = objectMapper.convertValue(jsonNode.get("millions"), String[].class);

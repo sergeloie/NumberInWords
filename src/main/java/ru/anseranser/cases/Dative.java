@@ -19,13 +19,17 @@ public class Dative implements Case {
     private final String[] feminineOnes;
     private final String[] neuterOnes;
 
-    @SneakyThrows(IOException.class)
     public Dative() {
 
         ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(this.getClass()
-                .getClassLoader()
-                .getResourceAsStream("cases/dative.json"));
+        JsonNode jsonNode = null;
+        try {
+            jsonNode = objectMapper.readTree(this.getClass()
+                    .getClassLoader()
+                    .getResourceAsStream("cases/dative.json"));
+        } catch (IOException e) {
+            throw new RuntimeException("File with Dative case definition not found");
+        }
 
         this.billions = objectMapper.convertValue(jsonNode.get("billions"), String[].class);
         this.millions = objectMapper.convertValue(jsonNode.get("millions"), String[].class);

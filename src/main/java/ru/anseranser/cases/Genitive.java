@@ -20,13 +20,17 @@ public class Genitive implements Case {
     private final String[] feminineOnes;
     private final String[] neuterOnes;
 
-    @SneakyThrows(IOException.class)
     public Genitive() {
 
         ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(this.getClass()
-                .getClassLoader()
-                .getResourceAsStream("cases/genitive.json"));
+        JsonNode jsonNode = null;
+        try {
+            jsonNode = objectMapper.readTree(this.getClass()
+                    .getClassLoader()
+                    .getResourceAsStream("cases/genitive.json"));
+        } catch (IOException e) {
+            throw new RuntimeException("File with Genitive case definition not found");
+        }
 
         this.billions = objectMapper.convertValue(jsonNode.get("billions"), String[].class);
         this.millions = objectMapper.convertValue(jsonNode.get("millions"), String[].class);
