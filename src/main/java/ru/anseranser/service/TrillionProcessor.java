@@ -1,5 +1,6 @@
-package ru.anseranser;
+package ru.anseranser.service;
 
+import org.springframework.stereotype.Service;
 import ru.anseranser.cases.Case;
 import ru.anseranser.cases.CaseFactory;
 import ru.anseranser.enums.Cases;
@@ -10,6 +11,7 @@ import ru.anseranser.model.Triset;
 import static ru.anseranser.enums.Genders.FEMININE;
 import static ru.anseranser.enums.Genders.MASCULINE;
 
+@Service
 public class TrillionProcessor {
 
     public String toWords(long number, Cases caseOne, Genders gender) {

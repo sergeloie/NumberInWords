@@ -1,6 +1,7 @@
 package ru.anseranser;
 
 import org.junit.jupiter.api.Test;
+import ru.anseranser.service.TrillionProcessor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.anseranser.enums.Cases.GENITIVE;
