@@ -1,10 +1,9 @@
 package ru.anseranser.model;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import ru.anseranser.exception.NumberOutOfBoundException;
 
 @Getter
-@EqualsAndHashCode
 public class Triset {
     private int number;
     private int hundreds;
@@ -14,7 +13,7 @@ public class Triset {
 
     public Triset(int number) {
         if (number < 0 || number > 999) {
-            throw new RuntimeException("Number should be >= 0 and <= 999");
+            throw new NumberOutOfBoundException("Number should be >= 0 and <= 999");
         }
         this.number = number;
         int h = number / 100;
