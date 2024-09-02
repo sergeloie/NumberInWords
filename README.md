@@ -9,6 +9,7 @@
 Стек: Java 21, Spring Boot, Docker, Amplicode, SonarCloud  
 
 Демо доступно по адресу https://number-in-words-rus-v1.onrender.com  
+(Бесплатный хостинг, поэтому может загружаться около минуты)
 
 Приложение доступно как Docker образ, для скачивания образа выполните
 ```shell
