@@ -1,21 +1,29 @@
 package ru.anseranser.cases;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
 import ru.anseranser.enums.Cases;
 
+@Component
 public final class CaseFactory {
 
-    private CaseFactory() {
-        throw new IllegalStateException("Utility class");
+    private final ApplicationContext applicationContext;
+
+    public CaseFactory(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
     }
 
-    public static Case createCase(Cases theCase) {
+    public Case createCase(Cases theCase) {
         return switch (theCase) {
-            case NOMINATIVE -> new Nominative();
-            case GENITIVE -> new Genitive();
-            case DATIVE -> new Dative();
-            case ACCUSATIVE -> new Accusative();
-            case INSTRUMENTAL -> new Instrumental();
-            case PREPOSITIONAL -> new Prepositional();
+            case NOMINATIVE -> applicationContext.getBean(Nominative.class);
+            case GENITIVE -> applicationContext.getBean(Genitive.class);
+            case DATIVE -> applicationContext.getBean(Dative.class);
+            case ACCUSATIVE -> applicationContext.getBean(Accusative.class);
+            case INSTRUMENTAL -> applicationContext.getBean(Instrumental.class);
+            case PREPOSITIONAL -> applicationContext.getBean(Prepositional.class);
         };
     }
 }
+
+
+

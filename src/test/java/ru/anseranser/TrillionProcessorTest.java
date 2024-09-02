@@ -1,6 +1,8 @@
 package ru.anseranser;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import ru.anseranser.service.TrillionProcessor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,9 +11,11 @@ import static ru.anseranser.enums.Cases.NOMINATIVE;
 import static ru.anseranser.enums.Genders.FEMININE;
 import static ru.anseranser.enums.Genders.MASCULINE;
 
+@SpringBootTest
 class TrillionProcessorTest {
 
-    private final TrillionProcessor processor = new TrillionProcessor();
+    @Autowired
+    private TrillionProcessor processor;
 
     @Test
     void testZero() {
