@@ -20,7 +20,7 @@ public abstract class AbstractCase implements Case {
     protected final String[] feminineOnes;
     protected final String[] neuterOnes;
 
-    public AbstractCase(String filename) {
+    protected AbstractCase(String filename) {
 
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode;
