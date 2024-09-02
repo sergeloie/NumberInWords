@@ -1,6 +1,7 @@
 package ru.anseranser.service;
 
-import org.springframework.stereotype.Service;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import ru.anseranser.cases.Case;
 import ru.anseranser.cases.CaseFactory;
 import ru.anseranser.enums.Cases;
@@ -11,11 +12,14 @@ import ru.anseranser.model.Triset;
 import static ru.anseranser.enums.Genders.FEMININE;
 import static ru.anseranser.enums.Genders.MASCULINE;
 
-@Service
+@Component
+@RequiredArgsConstructor
 public class TrillionProcessor {
 
+    private final CaseFactory caseFactory;
+
     public String toWords(long number, Cases caseOne, Genders gender) {
-        Case theCase = CaseFactory.createCase(caseOne);
+        Case theCase = caseFactory.createCase(caseOne);
         if (number == 0) {
             return theCase.getMasculineOnes()[0];
         }
