@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ru.anseranser.enums.Cases;
@@ -21,12 +20,10 @@ public class NumberInputDTO {
     @Max(999_999_999_999L)
     private long number;
 
-    @NotNull
-    @JsonSetter(nulls = Nulls.SKIP)
     @JsonProperty("case")
+    @JsonSetter(nulls = Nulls.SKIP)
     private Cases theCase = Cases.NOMINATIVE;
 
-    @NotNull
     @JsonSetter(nulls = Nulls.SKIP)
     private Genders gender = Genders.MASCULINE;
 

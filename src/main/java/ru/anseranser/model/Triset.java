@@ -16,8 +16,7 @@ public class Triset {
             throw new NumberOutOfBoundException("Number should be >= 0 and <= 999");
         }
         this.number = number;
-        int h = number / 100;
-        this.hundreds = h;
+        this.hundreds = number / 100;
         int hRemainder = number % 100;
         if (hRemainder >= 11 && hRemainder <= 19) {
             this.teens = hRemainder;
