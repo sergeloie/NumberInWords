@@ -1,5 +1,8 @@
 package ru.anseranser.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,12 +15,14 @@ import ru.anseranser.service.NumberService;
 @RestController
 @RequestMapping("/convert")
 @RequiredArgsConstructor
+@Tag(name = "Number Converter", description = "Convert numbers to words in Russian")
 public class NumberController {
 
     private final NumberService numberService;
 
+    @Operation(summary = "Convert a number to its Russian word representation")
     @PostMapping
-    public NumberOutputDTO convert(@RequestBody NumberInputDTO numberInputDTO) {
+    public NumberOutputDTO convert(@Valid @RequestBody NumberInputDTO numberInputDTO) {
         return numberService.convert(numberInputDTO);
     }
 

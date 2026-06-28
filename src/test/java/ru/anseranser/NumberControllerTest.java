@@ -4,13 +4,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -19,16 +19,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 class NumberControllerTest {
+
     @Autowired
     private ResourceLoader resourceLoader;
 
     @Autowired
     private MockMvc mockMvc;
 
+    private String readJson(String filename) throws IOException {
+        var resource = resourceLoader.getResource("classpath:json/" + filename);
+        return Files.readString(Path.of(resource.getURI()));
+    }
+
     @Test
     void oneTest() throws Exception {
-        Resource resource = resourceLoader.getResource("classpath:json/1.json");
-        String request = new String(Files.readAllBytes(Paths.get(resource.getURI())));
+        String request = readJson("1.json");
 
         var result = mockMvc.perform(post("/convert")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -47,8 +52,7 @@ class NumberControllerTest {
 
     @Test
     void zeroTest() throws Exception {
-        Resource resource = resourceLoader.getResource("classpath:json/0.json");
-        String request = new String(Files.readAllBytes(Paths.get(resource.getURI())));
+        String request = readJson("0.json");
 
         var result = mockMvc.perform(post("/convert")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -67,8 +71,7 @@ class NumberControllerTest {
 
     @Test
     void allNumbersTest() throws Exception {
-        Resource resource = resourceLoader.getResource("classpath:json/111987654321.json");
-        String request = new String(Files.readAllBytes(Paths.get(resource.getURI())));
+        String request = readJson("111987654321.json");
 
         var result = mockMvc.perform(post("/convert")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -90,8 +93,7 @@ class NumberControllerTest {
 
     @Test
     void dativeTest() throws Exception {
-        Resource resource = resourceLoader.getResource("classpath:json/101311422981.json");
-        String request = new String(Files.readAllBytes(Paths.get(resource.getURI())));
+        String request = readJson("101311422981.json");
 
         var result = mockMvc.perform(post("/convert")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -113,8 +115,7 @@ class NumberControllerTest {
 
     @Test
     void accusativeTest() throws Exception {
-        Resource resource = resourceLoader.getResource("classpath:json/999999999999.json");
-        String request = new String(Files.readAllBytes(Paths.get(resource.getURI())));
+        String request = readJson("999999999999.json");
 
         var result = mockMvc.perform(post("/convert")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -136,8 +137,7 @@ class NumberControllerTest {
 
     @Test
     void prepositionalTest() throws Exception {
-        Resource resource = resourceLoader.getResource("classpath:json/1001001001.json");
-        String request = new String(Files.readAllBytes(Paths.get(resource.getURI())));
+        String request = readJson("1001001001.json");
 
         var result = mockMvc.perform(post("/convert")
                         .contentType(MediaType.APPLICATION_JSON)

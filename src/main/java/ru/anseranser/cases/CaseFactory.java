@@ -4,24 +4,27 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import ru.anseranser.enums.Cases;
 
+import java.util.Map;
+import java.util.function.Supplier;
+
 @Component
 public final class CaseFactory {
 
-    private final ApplicationContext applicationContext;
+    private final Map<Cases, Supplier<Case>> caseMap;
 
     public CaseFactory(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
+        this.caseMap = Map.of(
+                Cases.NOMINATIVE, () -> applicationContext.getBean(Nominative.class),
+                Cases.GENITIVE, () -> applicationContext.getBean(Genitive.class),
+                Cases.DATIVE, () -> applicationContext.getBean(Dative.class),
+                Cases.ACCUSATIVE, () -> applicationContext.getBean(Accusative.class),
+                Cases.INSTRUMENTAL, () -> applicationContext.getBean(Instrumental.class),
+                Cases.PREPOSITIONAL, () -> applicationContext.getBean(Prepositional.class)
+        );
     }
 
     public Case createCase(Cases theCase) {
-        return switch (theCase) {
-            case NOMINATIVE -> applicationContext.getBean(Nominative.class);
-            case GENITIVE -> applicationContext.getBean(Genitive.class);
-            case DATIVE -> applicationContext.getBean(Dative.class);
-            case ACCUSATIVE -> applicationContext.getBean(Accusative.class);
-            case INSTRUMENTAL -> applicationContext.getBean(Instrumental.class);
-            case PREPOSITIONAL -> applicationContext.getBean(Prepositional.class);
-        };
+        return caseMap.get(theCase).get();
     }
 }
 
