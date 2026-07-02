@@ -1,5 +1,7 @@
 package ru.anseranser.cases;
 
+import ru.anseranser.enums.Genders;
+
 public interface Case {
     String[] getBillions();
     String[] getMillions();
@@ -7,7 +9,5 @@ public interface Case {
     String[] getHundreds();
     String[] getTeens();
     String[] getTens();
-    String[] getMasculineOnes();
-    String[] getFeminineOnes();
-    String[] getNeuterOnes();
+    String[] getOnes(Genders gender);
 }

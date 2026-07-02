@@ -3,69 +3,78 @@ package ru.anseranser.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.anseranser.cases.Case;
-import ru.anseranser.cases.CaseFactory;
 import ru.anseranser.enums.Cases;
 import ru.anseranser.enums.Genders;
-import ru.anseranser.model.Trillion;
-import ru.anseranser.model.Triset;
 
-import static ru.anseranser.enums.Genders.FEMININE;
-import static ru.anseranser.enums.Genders.MASCULINE;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
 public class TrillionProcessor {
 
-    private final CaseFactory caseFactory;
+    private final Map<Cases, Case> cases;
 
-    public String toWords(long number, Cases caseOne, Genders gender) {
-        Case theCase = caseFactory.createCase(caseOne);
+    public String toWords(long number, Cases caze, Genders gender) {
         if (number == 0) {
-            return theCase.getMasculineOnes()[0];
+            return cases.get(caze).getOnes(gender)[0];
         }
-        Trillion trillion = new Trillion(number);
+
+        Case theCase = cases.get(caze);
         StringBuilder sb = new StringBuilder();
-        if (trillion.getBillions().getNumber() != 0) {
-            Triset b = trillion.getBillions();
-            sb.append(buildTrio(b, theCase, MASCULINE));
 
-            sb.append(theCase.getBillions()[b.getOnes()]).append(" ");
-        }
-
-        if (trillion.getMillions().getNumber() != 0) {
-            Triset m = trillion.getMillions();
-            sb.append(buildTrio(m, theCase, MASCULINE));
-            sb.append(theCase.getMillions()[m.getOnes()]).append(" ");
-        }
-
-        if (trillion.getThousands().getNumber() != 0) {
-            Triset t = trillion.getThousands();
-            sb.append(buildTrio(t, theCase, FEMININE));
-            sb.append(theCase.getThousands()[t.getOnes()]).append(" ");
-        }
-
-        if (trillion.getOnes().getNumber() != 0) {
-            Triset o = trillion.getOnes();
-            sb.append(buildTrio(o, theCase, gender));
+        int trioIndex = 0;
+        long remaining = number;
+        while (remaining > 0) {
+            int trio = (int) (remaining % 1000);
+            if (trio > 0) {
+                Genders trioGender = switch (trioIndex) {
+                    case 0 -> gender;              // ones - use passed gender
+                    case 1 -> Genders.FEMININE;    // thousands - always feminine
+                    default -> Genders.MASCULINE;  // millions, billions - always masculine
+                };
+                String trioWords = buildTrio(trio, theCase, trioGender);
+                String unitSuffix = getUnitSuffix(theCase, trioIndex, trio);
+                sb.insert(0, trioWords + unitSuffix + " ");
+            }
+            remaining /= 1000;
+            trioIndex++;
         }
         return sb.toString().trim();
     }
 
-    public String buildTrio(Triset triset, Case theCase, Genders gender) {
-        if (triset.getNumber() == 0) {
-            return "";
-        }
-        StringBuilder sb = new StringBuilder();
-        sb.append(triset.getHundreds() == 0 ? "" : theCase.getHundreds()[triset.getHundreds()] + " ");
-        sb.append(triset.getTeens() == 0 ? "" : theCase.getTeens()[triset.getTeens()] + " ");
-        sb.append(triset.getTens() == 0 ? "" : theCase.getTens()[triset.getTens()] + " ");
-        sb.append(triset.getOnes() == 0 ? ""
-                : switch (gender) {
-            case MASCULINE -> theCase.getMasculineOnes()[triset.getOnes()] + " ";
-            case FEMININE -> theCase.getFeminineOnes()[triset.getOnes()] + " ";
-            case NEUTER -> theCase.getNeuterOnes()[triset.getOnes()] + " ";
+    private String buildTrio(int trio, Case theCase, Genders gender) {
+        int hundreds = trio / 100;
+        int remainder = trio % 100;
+        boolean isTeens = remainder >= 11 && remainder <= 19;
+        int teens = isTeens ? remainder : 0;
+        int tens = isTeens ? 0 : remainder / 10;
+        int ones = isTeens ? 0 : remainder % 10;
 
-        });
-        return sb.toString();
+        java.util.List<String> parts = new java.util.ArrayList<>();
+        if (hundreds > 0) {
+            parts.add(theCase.getHundreds()[hundreds]);
+        }
+        if (teens > 0) {
+            parts.add(theCase.getTeens()[teens]);
+        } else {
+            if (tens > 0) {
+                parts.add(theCase.getTens()[tens]);
+            }
+            if (ones > 0) {
+                parts.add(theCase.getOnes(gender)[ones]);
+            }
+        }
+        return String.join(" ", parts);
+    }
+
+    private String getUnitSuffix(Case theCase, int trioIndex, int trio) {
+        int ones = trio % 100 >= 11 && trio % 100 <= 19 ? 0 : trio % 10;
+        String suffix = switch (trioIndex) {
+            case 1 -> theCase.getThousands()[ones]; // thousands
+            case 2 -> theCase.getMillions()[ones];  // millions
+            case 3 -> theCase.getBillions()[ones];  // billions
+            default -> "";
+        };
+        return suffix.isEmpty() ? "" : " " + suffix;
     }
 }
