@@ -4,14 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import ru.anseranser.enums.Cases;
 import ru.anseranser.enums.Genders;
+
+import java.io.IOException;
+import java.util.Map;
 
 @Configuration
 public class CaseConfig {
@@ -43,7 +40,8 @@ public class CaseConfig {
             String[] masculineOnes,
             String[] feminineOnes,
             String[] neuterOnes
-    ) {}
+    ) {
+    }
 
     // Simple implementation of Case interface
     private static class SimpleCase implements Case {
@@ -57,7 +55,7 @@ public class CaseConfig {
         private final String[] feminineOnes;
         private final String[] neuterOnes;
 
-        public SimpleCase(CaseData data) {
+        SimpleCase(CaseData data) {
             this.billions = data.billions();
             this.millions = data.millions();
             this.thousands = data.thousands();
@@ -70,17 +68,35 @@ public class CaseConfig {
         }
 
         @Override
-        public String[] getBillions() { return billions; }
+        public String[] getBillions() {
+            return billions;
+        }
+
         @Override
-        public String[] getMillions() { return millions; }
+        public String[] getMillions() {
+            return millions;
+        }
+
         @Override
-        public String[] getThousands() { return thousands; }
+        public String[] getThousands() {
+            return thousands;
+        }
+
         @Override
-        public String[] getHundreds() { return hundreds; }
+        public String[] getHundreds() {
+            return hundreds;
+        }
+
         @Override
-        public String[] getTeens() { return teens; }
+        public String[] getTeens() {
+            return teens;
+        }
+
         @Override
-        public String[] getTens() { return tens; }
+        public String[] getTens() {
+            return tens;
+        }
+
         @Override
         public String[] getOnes(Genders gender) {
             return switch (gender) {
