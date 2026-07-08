@@ -10,7 +10,7 @@ plugins {
     checkstyle
     id("org.springframework.boot") version "3.3.2"
     id("io.spring.dependency-management") version "1.1.6"
-    id("org.sonarqube") version "4.4.1.3373"
+    id("org.sonarqube") version "7.3.1.8318"
 
 }
 group = "ru.anseranser"
@@ -58,6 +58,5 @@ sonar {
     properties {
         property("sonar.projectKey", "sergeloie_NumberInWords")
         property("sonar.organization", "sergeloie")
-        property("sonar.host.url", "https://sonarcloud.io")
     }
 }
