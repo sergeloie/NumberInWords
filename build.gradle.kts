@@ -1,15 +1,15 @@
-val lombokVersion = "1.18.34"
-val junitVersion = "5.11.0"
+val lombokVersion = "1.18.46"
+val junitVersion = "5.14.4"
 val javacrumbsVersion = "3.4.1"
-val junitPlatformVersion = "1.11.0"
-val swaggerVersion = "2.6.0"
+val junitPlatformVersion = "1.14.4"
+val swaggerVersion = "2.8.6"
 
 plugins {
     application
     jacoco
     checkstyle
-    id("org.springframework.boot") version "3.3.2"
-    id("io.spring.dependency-management") version "1.1.6"
+    id("org.springframework.boot") version "3.5.16"
+    id("io.spring.dependency-management") version "1.1.7"
     id("org.sonarqube") version "7.3.1.8318"
 
 }
