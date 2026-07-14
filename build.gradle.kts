@@ -1,7 +1,5 @@
 val lombokVersion = "1.18.46"
-val junitVersion = "5.14.4"
 val javacrumbsVersion = "3.4.1"
-val junitPlatformVersion = "1.14.4"
 val swaggerVersion = "2.8.6"
 
 plugins {
@@ -35,12 +33,9 @@ dependencies {
     compileOnly("org.projectlombok:lombok:$lombokVersion")
     annotationProcessor("org.projectlombok:lombok:$lombokVersion")
 
-    testImplementation(platform("org.junit:junit-bom:$junitVersion"))
-    testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("net.javacrumbs.json-unit:json-unit-assertj:$javacrumbsVersion")
-
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:$junitPlatformVersion")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.withType<Test> {
