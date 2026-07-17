@@ -3,7 +3,7 @@ package ru.anseranser;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import ru.anseranser.service.TrillionProcessor;
+import ru.anseranser.service.WordConverter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.anseranser.enums.Cases.GENITIVE;
@@ -12,10 +12,10 @@ import static ru.anseranser.enums.Genders.FEMININE;
 import static ru.anseranser.enums.Genders.MASCULINE;
 
 @SpringBootTest
-class TrillionProcessorTest {
+class WordConverterTest {
 
     @Autowired
-    private TrillionProcessor processor;
+    private WordConverter processor;
 
     @Test
     void testZero() {

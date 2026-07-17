@@ -9,7 +9,7 @@ import ru.anseranser.dto.NumberOutputDTO;
 @Service
 public class NumberService {
 
-    private final TrillionProcessor tp;
+    private final WordConverter tp;
 
     public NumberOutputDTO convert(NumberInputDTO numberInputDTO) {
         String result = tp.toWords(

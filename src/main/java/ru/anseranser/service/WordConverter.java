@@ -6,17 +6,18 @@ import ru.anseranser.cases.Case;
 import ru.anseranser.enums.Cases;
 import ru.anseranser.enums.Genders;
 
+import java.util.List;
 import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
-public class TrillionProcessor {
+public class WordConverter {
 
     private final Map<Cases, Case> cases;
 
     public String toWords(long number, Cases caze, Genders gender) {
         if (number == 0) {
-            return cases.get(caze).getOnes(gender)[0];
+            return cases.get(caze).getOnes(Genders.MASCULINE)[0];
         }
 
         Case theCase = cases.get(caze);
@@ -50,7 +51,7 @@ public class TrillionProcessor {
         int tens = isTeens ? 0 : remainder / 10;
         int ones = isTeens ? 0 : remainder % 10;
 
-        java.util.List<String> parts = new java.util.ArrayList<>();
+        List<String> parts = new java.util.ArrayList<>();
         if (hundreds > 0) {
             parts.add(theCase.getHundreds()[hundreds]);
         }
