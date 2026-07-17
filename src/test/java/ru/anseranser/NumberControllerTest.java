@@ -136,6 +136,23 @@ class NumberControllerTest {
     }
 
     @Test
+    void outOfBoundsTest() throws Exception {
+        String request = readJson("9999999999999.json");
+
+        var result = mockMvc.perform(post("/convert")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
+                .andExpect(status().isBadRequest())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        assertThatJson(result).and(
+                v -> v.node("error").isPresent()
+        );
+    }
+
+    @Test
     void prepositionalTest() throws Exception {
         String request = readJson("1001001001.json");
 
