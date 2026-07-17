@@ -6,6 +6,7 @@ import ru.anseranser.cases.Case;
 import ru.anseranser.enums.Cases;
 import ru.anseranser.enums.Genders;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -51,7 +52,7 @@ public class WordConverter {
         int tens = isTeens ? 0 : remainder / 10;
         int ones = isTeens ? 0 : remainder % 10;
 
-        List<String> parts = new java.util.ArrayList<>();
+        List<String> parts = new ArrayList<>();
         if (hundreds > 0) {
             parts.add(theCase.getHundreds()[hundreds]);
         }
