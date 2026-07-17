@@ -1,9 +1,12 @@
 package ru.anseranser;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import ru.anseranser.cases.CaseConfig;
 import ru.anseranser.service.WordConverter;
+
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.anseranser.enums.Cases.GENITIVE;
@@ -11,48 +14,53 @@ import static ru.anseranser.enums.Cases.NOMINATIVE;
 import static ru.anseranser.enums.Genders.FEMININE;
 import static ru.anseranser.enums.Genders.MASCULINE;
 
-@SpringBootTest
 class WordConverterTest {
 
-    @Autowired
-    private WordConverter processor;
+    private static WordConverter converter;
+
+    @BeforeAll
+    static void setUp() throws Exception {
+        Map<ru.anseranser.enums.Cases, ru.anseranser.cases.Case> cases =
+                CaseConfig.loadAll(new ObjectMapper());
+        converter = new WordConverter(cases);
+    }
 
     @Test
     void testZero() {
-        assertEquals("ноль", processor.toWords(0, NOMINATIVE, MASCULINE));
+        assertEquals("ноль", converter.toWords(0, NOMINATIVE, MASCULINE));
     }
 
     @Test
     void testOneBillion() {
-        assertEquals("один миллиард", processor.toWords(1_000_000_000, NOMINATIVE, MASCULINE));
+        assertEquals("один миллиард", converter.toWords(1_000_000_000, NOMINATIVE, MASCULINE));
     }
 
     @Test
     void testOneMillionOneBillion() {
-        assertEquals("один миллиард один миллион", processor.toWords(1_001_000_000, NOMINATIVE, MASCULINE));
+        assertEquals("один миллиард один миллион", converter.toWords(1_001_000_000, NOMINATIVE, MASCULINE));
     }
 
     @Test
     void testOneThousand() {
-        assertEquals("одна тысяча", processor.toWords(1_000, NOMINATIVE, MASCULINE));
+        assertEquals("одна тысяча", converter.toWords(1_000, NOMINATIVE, MASCULINE));
     }
 
     @Test
     void testComplexNumber() {
         // 2 003 004 005 -> 2 миллиарда 3 миллиона 4 тысячи 5
         assertEquals("два миллиарда три миллиона четыре тысячи пять",
-                     processor.toWords(2_003_004_005, NOMINATIVE, MASCULINE));
+                     converter.toWords(2_003_004_005, NOMINATIVE, MASCULINE));
     }
 
     @Test
     void testFeminineGender() {
-        assertEquals("одна", processor.toWords(1, NOMINATIVE, FEMININE));
+        assertEquals("одна", converter.toWords(1, NOMINATIVE, FEMININE));
     }
 
     @Test
     void testGenitiveCase() {
         // 2 003 004 005 в родительном падеже
         assertEquals("двух миллиардов трёх миллионов четырёх тысяч пяти",
-                     processor.toWords(2_003_004_005, GENITIVE, MASCULINE));
+                     converter.toWords(2_003_004_005, GENITIVE, MASCULINE));
     }
 }

@@ -15,6 +15,10 @@ public class CaseConfig {
 
     @Bean
     public Map<Cases, Case> cases(ObjectMapper objectMapper) throws IOException {
+        return loadAll(objectMapper);
+    }
+
+    public static Map<Cases, Case> loadAll(ObjectMapper objectMapper) throws IOException {
         Map<Cases, Case> result = new java.util.EnumMap<>(Cases.class);
         for (Cases c : Cases.values()) {
             result.put(c, loadCase(objectMapper, c));
@@ -22,7 +26,7 @@ public class CaseConfig {
         return result;
     }
 
-    private Case loadCase(ObjectMapper mapper, Cases caze) throws IOException {
+    private static Case loadCase(ObjectMapper mapper, Cases caze) throws IOException {
         String filename = "cases/" + caze.name().toLowerCase() + ".json";
         ClassPathResource resource = new ClassPathResource(filename);
         CaseData data = mapper.readValue(resource.getInputStream(), CaseData.class);
