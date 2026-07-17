@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.anseranser.dto.NumberInputDTO;
 import ru.anseranser.dto.NumberOutputDTO;
-import ru.anseranser.service.NumberService;
+import ru.anseranser.service.WordConverter;
 
 @RestController
 @RequestMapping("/convert")
@@ -18,12 +18,12 @@ import ru.anseranser.service.NumberService;
 @Tag(name = "Number Converter", description = "Convert numbers to words in Russian")
 public class NumberController {
 
-    private final NumberService numberService;
+    private final WordConverter wordConverter;
 
     @Operation(summary = "Convert a number to its Russian word representation")
     @PostMapping
     public NumberOutputDTO convert(@Valid @RequestBody NumberInputDTO numberInputDTO) {
-        return numberService.convert(numberInputDTO);
+        return wordConverter.convert(numberInputDTO);
     }
 
 }

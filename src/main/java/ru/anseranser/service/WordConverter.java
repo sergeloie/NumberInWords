@@ -1,8 +1,10 @@
 package ru.anseranser.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ru.anseranser.cases.Case;
+import ru.anseranser.dto.NumberInputDTO;
+import ru.anseranser.dto.NumberOutputDTO;
 import ru.anseranser.enums.Cases;
 import ru.anseranser.enums.Genders;
 
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Component
+@Service
 @RequiredArgsConstructor
 public class WordConverter {
 
@@ -78,5 +80,10 @@ public class WordConverter {
             default -> "";
         };
         return suffix.isEmpty() ? "" : " " + suffix;
+    }
+
+    public NumberOutputDTO convert(NumberInputDTO input) {
+        String result = toWords(input.getNumber(), input.getTheCase(), input.getGender());
+        return new NumberOutputDTO(input.getNumber(), input.getTheCase(), input.getGender(), result);
     }
 }
