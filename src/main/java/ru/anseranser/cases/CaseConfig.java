@@ -8,33 +8,32 @@ import ru.anseranser.enums.Cases;
 import ru.anseranser.enums.Genders;
 
 import java.io.IOException;
+import java.util.EnumMap;
 import java.util.Map;
 
 @Configuration
 public class CaseConfig {
 
     @Bean
-    public Map<Cases, Case> cases(ObjectMapper objectMapper) throws IOException {
+    public Map<Cases, SimpleCase> cases(ObjectMapper objectMapper) throws IOException {
         return loadAll(objectMapper);
     }
 
-    public static Map<Cases, Case> loadAll(ObjectMapper objectMapper) throws IOException {
-        Map<Cases, Case> result = new java.util.EnumMap<>(Cases.class);
+    public static Map<Cases, SimpleCase> loadAll(ObjectMapper objectMapper) throws IOException {
+        Map<Cases, SimpleCase> result = new EnumMap<>(Cases.class);
         for (Cases c : Cases.values()) {
             result.put(c, loadCase(objectMapper, c));
         }
         return result;
     }
 
-    private static Case loadCase(ObjectMapper mapper, Cases caze) throws IOException {
+    private static SimpleCase loadCase(ObjectMapper mapper, Cases caze) throws IOException {
         String filename = "cases/" + caze.name().toLowerCase() + ".json";
         ClassPathResource resource = new ClassPathResource(filename);
-        CaseData data = mapper.readValue(resource.getInputStream(), CaseData.class);
-        return new SimpleCase(data);
+        return mapper.readValue(resource.getInputStream(), SimpleCase.class);
     }
 
-    // Internal data holder matching JSON structure
-    public record CaseData(
+    public record SimpleCase(
             String[] billions,
             String[] millions,
             String[] thousands,
@@ -45,63 +44,6 @@ public class CaseConfig {
             String[] feminineOnes,
             String[] neuterOnes
     ) {
-    }
-
-    // Simple implementation of Case interface
-    private static class SimpleCase implements Case {
-        private final String[] billions;
-        private final String[] millions;
-        private final String[] thousands;
-        private final String[] hundreds;
-        private final String[] teens;
-        private final String[] tens;
-        private final String[] masculineOnes;
-        private final String[] feminineOnes;
-        private final String[] neuterOnes;
-
-        SimpleCase(CaseData data) {
-            this.billions = data.billions();
-            this.millions = data.millions();
-            this.thousands = data.thousands();
-            this.hundreds = data.hundreds();
-            this.teens = data.teens();
-            this.tens = data.tens();
-            this.masculineOnes = data.masculineOnes();
-            this.feminineOnes = data.feminineOnes();
-            this.neuterOnes = data.neuterOnes();
-        }
-
-        @Override
-        public String[] getBillions() {
-            return billions;
-        }
-
-        @Override
-        public String[] getMillions() {
-            return millions;
-        }
-
-        @Override
-        public String[] getThousands() {
-            return thousands;
-        }
-
-        @Override
-        public String[] getHundreds() {
-            return hundreds;
-        }
-
-        @Override
-        public String[] getTeens() {
-            return teens;
-        }
-
-        @Override
-        public String[] getTens() {
-            return tens;
-        }
-
-        @Override
         public String[] getOnes(Genders gender) {
             return switch (gender) {
                 case MASCULINE -> masculineOnes;

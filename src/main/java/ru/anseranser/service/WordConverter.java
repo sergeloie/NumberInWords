@@ -2,13 +2,14 @@ package ru.anseranser.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.anseranser.cases.Case;
+import ru.anseranser.cases.CaseConfig.SimpleCase;
 import ru.anseranser.dto.NumberInputDTO;
 import ru.anseranser.dto.NumberOutputDTO;
 import ru.anseranser.enums.Cases;
 import ru.anseranser.enums.Genders;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -16,15 +17,15 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class WordConverter {
 
-    private final Map<Cases, Case> cases;
+    private final Map<Cases, SimpleCase> cases;
 
     public String toWords(long number, Cases caze, Genders gender) {
         if (number == 0) {
             return cases.get(caze).getOnes(Genders.MASCULINE)[0];
         }
 
-        Case theCase = cases.get(caze);
-        StringBuilder sb = new StringBuilder();
+        SimpleCase theCase = cases.get(caze);
+        List<String> parts = new ArrayList<>();
 
         int trioIndex = 0;
         long remaining = number;
@@ -38,15 +39,21 @@ public class WordConverter {
                 };
                 String trioWords = buildTrio(trio, theCase, trioGender);
                 String unitSuffix = getUnitSuffix(theCase, trioIndex, trio);
-                sb.insert(0, trioWords + unitSuffix + " ");
+                parts.add(trioWords + unitSuffix);
             }
             remaining /= 1000;
             trioIndex++;
         }
-        return sb.toString().trim();
+        Collections.reverse(parts);
+        return String.join(" ", parts);
     }
 
-    private String buildTrio(int trio, Case theCase, Genders gender) {
+    private static int onesDigit(int trio) {
+        int r = trio % 100;
+        return (r >= 11 && r <= 19) ? 0 : r % 10;
+    }
+
+    private String buildTrio(int trio, SimpleCase theCase, Genders gender) {
         int hundreds = trio / 100;
         int remainder = trio % 100;
         boolean isTeens = remainder >= 11 && remainder <= 19;
@@ -56,13 +63,13 @@ public class WordConverter {
 
         List<String> parts = new ArrayList<>();
         if (hundreds > 0) {
-            parts.add(theCase.getHundreds()[hundreds]);
+            parts.add(theCase.hundreds()[hundreds]);
         }
         if (teens > 0) {
-            parts.add(theCase.getTeens()[teens]);
+            parts.add(theCase.teens()[teens]);
         } else {
             if (tens > 0) {
-                parts.add(theCase.getTens()[tens]);
+                parts.add(theCase.tens()[tens]);
             }
             if (ones > 0) {
                 parts.add(theCase.getOnes(gender)[ones]);
@@ -71,12 +78,12 @@ public class WordConverter {
         return String.join(" ", parts);
     }
 
-    private String getUnitSuffix(Case theCase, int trioIndex, int trio) {
-        int ones = trio % 100 >= 11 && trio % 100 <= 19 ? 0 : trio % 10;
+    private String getUnitSuffix(SimpleCase theCase, int trioIndex, int trio) {
+        int ones = onesDigit(trio);
         String suffix = switch (trioIndex) {
-            case 1 -> theCase.getThousands()[ones]; // thousands
-            case 2 -> theCase.getMillions()[ones];  // millions
-            case 3 -> theCase.getBillions()[ones];  // billions
+            case 1 -> theCase.thousands()[ones]; // thousands
+            case 2 -> theCase.millions()[ones];  // millions
+            case 3 -> theCase.billions()[ones];  // billions
             default -> "";
         };
         return suffix.isEmpty() ? "" : " " + suffix;

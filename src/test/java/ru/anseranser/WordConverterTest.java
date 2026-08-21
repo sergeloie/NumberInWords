@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.anseranser.cases.CaseConfig;
+import ru.anseranser.cases.CaseConfig.SimpleCase;
 import ru.anseranser.service.WordConverter;
 
 import java.util.Map;
@@ -20,7 +21,7 @@ class WordConverterTest {
 
     @BeforeAll
     static void setUp() throws Exception {
-        Map<ru.anseranser.enums.Cases, ru.anseranser.cases.Case> cases =
+        Map<ru.anseranser.enums.Cases, SimpleCase> cases =
                 CaseConfig.loadAll(new ObjectMapper());
         converter = new WordConverter(cases);
     }

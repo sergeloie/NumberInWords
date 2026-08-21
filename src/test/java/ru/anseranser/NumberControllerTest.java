@@ -31,16 +31,25 @@ class NumberControllerTest {
         return Files.readString(Path.of(resource.getURI()));
     }
 
+    private String convert(String json) throws Exception {
+        return mockMvc.perform(post("/convert")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+    }
+
+    private String convertExpectError(String json) throws Exception {
+        return mockMvc.perform(post("/convert")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(status().isBadRequest())
+                .andReturn().getResponse().getContentAsString();
+    }
+
     @Test
     void oneTest() throws Exception {
-        String request = readJson("1.json");
-
-        var result = mockMvc.perform(post("/convert")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(request)).andExpect(status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
+        var result = convert(readJson("1.json"));
 
         assertThatJson(result).and(
                 v -> v.node("number").isEqualTo(1),
@@ -52,14 +61,7 @@ class NumberControllerTest {
 
     @Test
     void zeroTest() throws Exception {
-        String request = readJson("0.json");
-
-        var result = mockMvc.perform(post("/convert")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(request)).andExpect(status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
+        var result = convert(readJson("0.json"));
 
         assertThatJson(result).and(
                 v -> v.node("number").isEqualTo(0),
@@ -71,14 +73,7 @@ class NumberControllerTest {
 
     @Test
     void allNumbersTest() throws Exception {
-        String request = readJson("111987654321.json");
-
-        var result = mockMvc.perform(post("/convert")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(request)).andExpect(status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
+        var result = convert(readJson("111987654321.json"));
 
         assertThatJson(result).and(
                 v -> v.node("number").isEqualTo(111987654321L),
@@ -93,14 +88,7 @@ class NumberControllerTest {
 
     @Test
     void dativeTest() throws Exception {
-        String request = readJson("101311422981.json");
-
-        var result = mockMvc.perform(post("/convert")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(request)).andExpect(status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
+        var result = convert(readJson("101311422981.json"));
 
         assertThatJson(result).and(
                 v -> v.node("number").isEqualTo(101311422981L),
@@ -115,14 +103,7 @@ class NumberControllerTest {
 
     @Test
     void accusativeTest() throws Exception {
-        String request = readJson("999999999999.json");
-
-        var result = mockMvc.perform(post("/convert")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(request)).andExpect(status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
+        var result = convert(readJson("999999999999.json"));
 
         assertThatJson(result).and(
                 v -> v.node("number").isEqualTo(999999999999L),
@@ -137,15 +118,7 @@ class NumberControllerTest {
 
     @Test
     void outOfBoundsTest() throws Exception {
-        String request = readJson("9999999999999.json");
-
-        var result = mockMvc.perform(post("/convert")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(request))
-                .andExpect(status().isBadRequest())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
+        var result = convertExpectError(readJson("9999999999999.json"));
 
         assertThatJson(result).and(
                 v -> v.node("error").isPresent()
@@ -154,14 +127,7 @@ class NumberControllerTest {
 
     @Test
     void prepositionalTest() throws Exception {
-        String request = readJson("1001001001.json");
-
-        var result = mockMvc.perform(post("/convert")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(request)).andExpect(status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
+        var result = convert(readJson("1001001001.json"));
 
         assertThatJson(result).and(
                 v -> v.node("number").isEqualTo(1001001001L),
