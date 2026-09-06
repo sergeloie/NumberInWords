@@ -1,15 +1,18 @@
-val lombokVersion = "1.18.46"
-val javacrumbsVersion = "3.4.1"
-val swaggerVersion = "2.8.6"
+val lombokVersion = "1.18.48"
+val javacrumbsVersion = "6.2.0"
+val swaggerVersion = "3.1.0"
 
 plugins {
     application
     jacoco
     checkstyle
-    id("org.springframework.boot") version "3.5.16"
+    id("org.springframework.boot") version "4.1.1"
     id("io.spring.dependency-management") version "1.1.7"
     id("org.sonarqube") version "7.3.1.8318"
 }
+
+// Boot 4.1.1 manages Tomcat 11.0.24; osv flags 3 CVEs fixed in 11.0.25.
+extra["tomcat.version"] = "11.0.25"
 group = "ru.anseranser"
 
 version = "1.0-SNAPSHOT"
@@ -25,14 +28,14 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-webmvc")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$swaggerVersion")
 
     compileOnly("org.projectlombok:lombok:$lombokVersion")
     annotationProcessor("org.projectlombok:lombok:$lombokVersion")
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
     testImplementation("net.javacrumbs.json-unit:json-unit-assertj:$javacrumbsVersion")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

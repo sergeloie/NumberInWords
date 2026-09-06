@@ -1,6 +1,5 @@
 package ru.anseranser.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.EnumMap;
 import java.util.Map;
@@ -9,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import ru.anseranser.enums.Cases;
 import ru.anseranser.enums.Genders;
+import tools.jackson.databind.ObjectMapper;
 
 @Configuration
 public class CaseConfig {

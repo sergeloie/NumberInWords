@@ -79,21 +79,26 @@ repositories {
 val guardrailsBasePackage = "ru.anseranser"
 
 dependencies {
-    "errorprone"("com.google.errorprone:error_prone_core:2.38.0")
+    "errorprone"("com.google.errorprone:error_prone_core:2.50.0")
     "spotbugsPlugins"("com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0")
-    "testImplementation"("com.tngtech.archunit:archunit:1.4.0")
+    "testImplementation"("com.tngtech.archunit:archunit:1.5.0")
 }
 
 extensions.configure<CheckstyleExtension>("checkstyle") {
-    toolVersion = "10.26.0"
+    toolVersion = "10.26.1"
     configFile = file("config/checkstyle/checkstyle.xml")
     isIgnoreFailures = false
     maxErrors = 0
     maxWarnings = 0
 }
 
+configurations.named("checkstyle") {
+    // checkstyle 10.x pulls plexus-utils 3.3.0 (osv GHSA-6fmv-xxpf-w3cw) - force patched line.
+    resolutionStrategy.force("org.codehaus.plexus:plexus-utils:3.6.1")
+}
+
 extensions.configure<PmdExtension>("pmd") {
-    toolVersion = "7.12.0"
+    toolVersion = "7.27.0"
     ruleSetConfig = resources.text.fromFile("config/pmd/ruleset.xml")
     isIgnoreFailures = false
     reportsDir = file("build/reports/pmd")
@@ -112,6 +117,8 @@ extensions.configure<SpotlessExtension>("spotless") {
 }
 
 tasks.withType<JavaCompile>().configureEach {
+    // Error Prone requires this extra javac flag on JDK 21 (fatal since errorprone 2.40).
+    options.compilerArgs.add("-XDaddTypeAnnotationsToSymbol=true")
     options.errorprone {
         disableWarningsInGeneratedCode.set(true)
         check("ReferenceEquality", net.ltgt.gradle.errorprone.CheckSeverity.ERROR)
@@ -140,7 +147,7 @@ tasks.withType<SpotBugsTask>().configureEach {
 }
 
 extensions.configure<JacocoPluginExtension>("jacoco") {
-    toolVersion = "0.8.12"
+    toolVersion = "0.8.15"
 }
 
 tasks.named<JacocoReport>("jacocoTestReport") {
@@ -170,7 +177,7 @@ extensions.configure<PitestPluginExtension>("pitest") {
     outputFormats.set(setOf("XML", "HTML"))
     mutators.set(setOf("DEFAULTS"))
     verbose.set(false)
-    junit5PluginVersion.set("1.2.1")
+    junit5PluginVersion.set("1.2.3")
 }
 
 val sonarJavaSource: String = project.findProperty("guardrails.javaVersion") as String? ?: "21"

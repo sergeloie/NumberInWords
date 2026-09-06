@@ -6,12 +6,12 @@ import static ru.anseranser.enums.Cases.NOMINATIVE;
 import static ru.anseranser.enums.Genders.FEMININE;
 import static ru.anseranser.enums.Genders.MASCULINE;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.anseranser.config.CaseConfig;
 import ru.anseranser.config.CaseConfig.SimpleCase;
+import tools.jackson.databind.json.JsonMapper;
 
 class WordConverterTest {
 
@@ -19,7 +19,7 @@ class WordConverterTest {
 
     @BeforeAll
     static void setUp() throws Exception {
-        Map<ru.anseranser.enums.Cases, SimpleCase> cases = CaseConfig.loadAll(new ObjectMapper());
+        Map<ru.anseranser.enums.Cases, SimpleCase> cases = CaseConfig.loadAll(new JsonMapper());
         converter = new WordConverter(cases);
     }
 
