@@ -1,15 +1,14 @@
-package ru.anseranser.cases;
+package ru.anseranser.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.util.EnumMap;
+import java.util.Map;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import ru.anseranser.enums.Cases;
 import ru.anseranser.enums.Genders;
-
-import java.io.IOException;
-import java.util.EnumMap;
-import java.util.Map;
 
 @Configuration
 public class CaseConfig {
@@ -42,8 +41,7 @@ public class CaseConfig {
             String[] teens,
             String[] masculineOnes,
             String[] feminineOnes,
-            String[] neuterOnes
-    ) {
+            String[] neuterOnes) {
         public String[] getOnes(Genders gender) {
             return switch (gender) {
                 case MASCULINE -> masculineOnes;

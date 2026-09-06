@@ -1,4 +1,4 @@
-package ru.anseranser.controller;
+package ru.anseranser.api;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,6 +25,4 @@ public class NumberController {
     public NumberOutputDTO convert(@Valid @RequestBody NumberInputDTO numberInputDTO) {
         return wordConverter.convert(numberInputDTO);
     }
-
 }
-

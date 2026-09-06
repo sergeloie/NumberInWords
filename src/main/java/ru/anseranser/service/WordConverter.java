@@ -1,17 +1,16 @@
 package ru.anseranser.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import ru.anseranser.cases.CaseConfig.SimpleCase;
-import ru.anseranser.dto.NumberInputDTO;
-import ru.anseranser.dto.NumberOutputDTO;
-import ru.anseranser.enums.Cases;
-import ru.anseranser.enums.Genders;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import ru.anseranser.config.CaseConfig.SimpleCase;
+import ru.anseranser.dto.NumberInputDTO;
+import ru.anseranser.dto.NumberOutputDTO;
+import ru.anseranser.enums.Cases;
+import ru.anseranser.enums.Genders;
 
 @Service
 @RequiredArgsConstructor
@@ -32,11 +31,12 @@ public class WordConverter {
         while (remaining > 0) {
             int trio = (int) (remaining % 1000);
             if (trio > 0) {
-                Genders trioGender = switch (trioIndex) {
-                    case 0 -> gender;              // ones - use passed gender
-                    case 1 -> Genders.FEMININE;    // thousands - always feminine
-                    default -> Genders.MASCULINE;  // millions, billions - always masculine
-                };
+                Genders trioGender =
+                        switch (trioIndex) {
+                            case 0 -> gender; // ones - use passed gender
+                            case 1 -> Genders.FEMININE; // thousands - always feminine
+                            default -> Genders.MASCULINE; // millions, billions - always masculine
+                        };
                 String trioWords = buildTrio(trio, theCase, trioGender);
                 String unitSuffix = getUnitSuffix(theCase, trioIndex, trio);
                 parts.add(trioWords + unitSuffix);
@@ -80,12 +80,13 @@ public class WordConverter {
 
     private String getUnitSuffix(SimpleCase theCase, int trioIndex, int trio) {
         int ones = onesDigit(trio);
-        String suffix = switch (trioIndex) {
-            case 1 -> theCase.thousands()[ones]; // thousands
-            case 2 -> theCase.millions()[ones];  // millions
-            case 3 -> theCase.billions()[ones];  // billions
-            default -> "";
-        };
+        String suffix =
+                switch (trioIndex) {
+                    case 1 -> theCase.thousands()[ones]; // thousands
+                    case 2 -> theCase.millions()[ones]; // millions
+                    case 3 -> theCase.billions()[ones]; // billions
+                    default -> "";
+                };
         return suffix.isEmpty() ? "" : " " + suffix;
     }
 

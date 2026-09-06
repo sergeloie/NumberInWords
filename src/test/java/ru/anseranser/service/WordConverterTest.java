@@ -1,13 +1,4 @@
-package ru.anseranser;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import ru.anseranser.cases.CaseConfig;
-import ru.anseranser.cases.CaseConfig.SimpleCase;
-import ru.anseranser.service.WordConverter;
-
-import java.util.Map;
+package ru.anseranser.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.anseranser.enums.Cases.GENITIVE;
@@ -15,14 +6,20 @@ import static ru.anseranser.enums.Cases.NOMINATIVE;
 import static ru.anseranser.enums.Genders.FEMININE;
 import static ru.anseranser.enums.Genders.MASCULINE;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Map;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import ru.anseranser.config.CaseConfig;
+import ru.anseranser.config.CaseConfig.SimpleCase;
+
 class WordConverterTest {
 
     private static WordConverter converter;
 
     @BeforeAll
     static void setUp() throws Exception {
-        Map<ru.anseranser.enums.Cases, SimpleCase> cases =
-                CaseConfig.loadAll(new ObjectMapper());
+        Map<ru.anseranser.enums.Cases, SimpleCase> cases = CaseConfig.loadAll(new ObjectMapper());
         converter = new WordConverter(cases);
     }
 
@@ -49,8 +46,9 @@ class WordConverterTest {
     @Test
     void testComplexNumber() {
         // 2 003 004 005 -> 2 миллиарда 3 миллиона 4 тысячи 5
-        assertEquals("два миллиарда три миллиона четыре тысячи пять",
-                     converter.toWords(2_003_004_005, NOMINATIVE, MASCULINE));
+        assertEquals(
+                "два миллиарда три миллиона четыре тысячи пять",
+                converter.toWords(2_003_004_005, NOMINATIVE, MASCULINE));
     }
 
     @Test
@@ -61,7 +59,8 @@ class WordConverterTest {
     @Test
     void testGenitiveCase() {
         // 2 003 004 005 в родительном падеже
-        assertEquals("двух миллиардов трёх миллионов четырёх тысяч пяти",
-                     converter.toWords(2_003_004_005, GENITIVE, MASCULINE));
+        assertEquals(
+                "двух миллиардов трёх миллионов четырёх тысяч пяти",
+                converter.toWords(2_003_004_005, GENITIVE, MASCULINE));
     }
 }

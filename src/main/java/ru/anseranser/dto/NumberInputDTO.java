@@ -26,5 +26,4 @@ public class NumberInputDTO {
 
     @JsonSetter(nulls = Nulls.SKIP)
     private Genders gender = Genders.MASCULINE;
-
 }
