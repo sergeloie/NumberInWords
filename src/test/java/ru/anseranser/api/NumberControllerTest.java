@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -26,10 +27,11 @@ class NumberControllerTest {
     private MockMvc mockMvc;
 
     private String readJson(String filename) throws IOException {
-        var resource = resourceLoader.getResource("classpath:json/" + filename);
+        Resource resource = resourceLoader.getResource("classpath:json/" + filename);
         return Files.readString(Path.of(resource.getURI()));
     }
 
+    @SuppressWarnings("PMD.SignatureDeclareThrowsException") // MockMvc.perform() declares throws Exception by contract
     private String convert(String json) throws Exception {
         return mockMvc.perform(
                         post("/convert").contentType(MediaType.APPLICATION_JSON).content(json))
@@ -39,6 +41,7 @@ class NumberControllerTest {
                 .getContentAsString();
     }
 
+    @SuppressWarnings("PMD.SignatureDeclareThrowsException") // MockMvc.perform() declares throws Exception by contract
     private String convertExpectError(String json) throws Exception {
         return mockMvc.perform(
                         post("/convert").contentType(MediaType.APPLICATION_JSON).content(json))
@@ -50,7 +53,7 @@ class NumberControllerTest {
 
     @Test
     void oneTest() throws Exception {
-        var result = convert(readJson("1.json"));
+        String result = convert(readJson("1.json"));
 
         assertThatJson(result)
                 .and(
@@ -62,7 +65,7 @@ class NumberControllerTest {
 
     @Test
     void zeroTest() throws Exception {
-        var result = convert(readJson("0.json"));
+        String result = convert(readJson("0.json"));
 
         assertThatJson(result)
                 .and(
@@ -74,11 +77,11 @@ class NumberControllerTest {
 
     @Test
     void allNumbersTest() throws Exception {
-        var result = convert(readJson("111987654321.json"));
+        String result = convert(readJson("111987654321.json"));
 
         assertThatJson(result)
                 .and(
-                        v -> v.node("number").isEqualTo(111987654321L),
+                        v -> v.node("number").isEqualTo(111_987_654_321L),
                         v -> v.node("gender").isEqualTo("FEMININE"),
                         v -> v.node("case").isEqualTo("INSTRUMENTAL"),
                         v -> v.node("numberInWords")
@@ -90,11 +93,11 @@ class NumberControllerTest {
 
     @Test
     void dativeTest() throws Exception {
-        var result = convert(readJson("101311422981.json"));
+        String result = convert(readJson("101311422981.json"));
 
         assertThatJson(result)
                 .and(
-                        v -> v.node("number").isEqualTo(101311422981L),
+                        v -> v.node("number").isEqualTo(101_311_422_981L),
                         v -> v.node("gender").isEqualTo("NEUTER"),
                         v -> v.node("case").isEqualTo("DATIVE"),
                         v -> v.node("numberInWords")
@@ -106,11 +109,11 @@ class NumberControllerTest {
 
     @Test
     void accusativeTest() throws Exception {
-        var result = convert(readJson("999999999999.json"));
+        String result = convert(readJson("999999999999.json"));
 
         assertThatJson(result)
                 .and(
-                        v -> v.node("number").isEqualTo(999999999999L),
+                        v -> v.node("number").isEqualTo(999_999_999_999L),
                         v -> v.node("gender").isEqualTo("MASCULINE"),
                         v -> v.node("case").isEqualTo("ACCUSATIVE"),
                         v -> v.node("numberInWords")
@@ -122,18 +125,18 @@ class NumberControllerTest {
 
     @Test
     void outOfBoundsTest() throws Exception {
-        var result = convertExpectError(readJson("9999999999999.json"));
+        String result = convertExpectError(readJson("9999999999999.json"));
 
         assertThatJson(result).and(v -> v.node("error").isPresent());
     }
 
     @Test
     void prepositionalTest() throws Exception {
-        var result = convert(readJson("1001001001.json"));
+        String result = convert(readJson("1001001001.json"));
 
         assertThatJson(result)
                 .and(
-                        v -> v.node("number").isEqualTo(1001001001L),
+                        v -> v.node("number").isEqualTo(1_001_001_001L),
                         v -> v.node("gender").isEqualTo("FEMININE"),
                         v -> v.node("case").isEqualTo("PREPOSITIONAL"),
                         v -> v.node("numberInWords").isEqualTo("одном миллиарде одном миллионе одной тысяче одной"));

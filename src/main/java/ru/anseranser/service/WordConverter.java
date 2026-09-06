@@ -19,32 +19,31 @@ public class WordConverter {
     private final Map<Cases, SimpleCase> cases;
 
     public String toWords(long number, Cases caze, Genders gender) {
-        if (number == 0) {
-            return cases.get(caze).getOnes(Genders.MASCULINE).get(0);
-        }
-
         SimpleCase theCase = cases.get(caze);
         List<String> parts = new ArrayList<>();
-
-        int trioIndex = 0;
-        long remaining = number;
-        while (remaining > 0) {
-            int trio = (int) (remaining % 1000);
-            if (trio > 0) {
-                Genders trioGender =
-                        switch (trioIndex) {
-                            case 0 -> gender; // ones - use passed gender
-                            case 1 -> Genders.FEMININE; // thousands - always feminine
-                            default -> Genders.MASCULINE; // millions, billions - always masculine
-                        };
-                String trioWords = buildTrio(trio, theCase, trioGender);
-                String unitSuffix = getUnitSuffix(theCase, trioIndex, trio);
-                parts.add(trioWords + unitSuffix);
+        if (number == 0) {
+            parts.add(theCase.getOnes(Genders.MASCULINE).get(0));
+        } else {
+            int trioIndex = 0;
+            long remaining = number;
+            while (remaining > 0) {
+                int trio = (int) (remaining % 1000);
+                if (trio > 0) {
+                    Genders trioGender =
+                            switch (trioIndex) {
+                                case 0 -> gender; // ones - use passed gender
+                                case 1 -> Genders.FEMININE; // thousands - always feminine
+                                default -> Genders.MASCULINE; // millions, billions - always masculine
+                            };
+                    String trioWords = buildTrio(trio, theCase, trioGender);
+                    String unitSuffix = getUnitSuffix(theCase, trioIndex, trio);
+                    parts.add(trioWords + unitSuffix);
+                }
+                remaining /= 1000;
+                trioIndex++;
             }
-            remaining /= 1000;
-            trioIndex++;
+            Collections.reverse(parts);
         }
-        Collections.reverse(parts);
         return String.join(" ", parts);
     }
 

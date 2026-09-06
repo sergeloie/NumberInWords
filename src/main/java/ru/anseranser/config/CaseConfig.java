@@ -20,6 +20,7 @@ public class CaseConfig {
         return loadAll(objectMapper);
     }
 
+    @SuppressWarnings("PMD.UseConcurrentHashMap") // EnumMap fits enum keys best; populated once, read-only afterwards
     public static Map<Cases, SimpleCase> loadAll(ObjectMapper objectMapper) throws IOException {
         Map<Cases, SimpleCase> result = new EnumMap<>(Cases.class);
         for (Cases c : Cases.values()) {
@@ -44,6 +45,18 @@ public class CaseConfig {
             List<String> masculineOnes,
             List<String> feminineOnes,
             List<String> neuterOnes) {
+        public SimpleCase {
+            billions = List.copyOf(billions);
+            millions = List.copyOf(millions);
+            thousands = List.copyOf(thousands);
+            hundreds = List.copyOf(hundreds);
+            tens = List.copyOf(tens);
+            teens = List.copyOf(teens);
+            masculineOnes = List.copyOf(masculineOnes);
+            feminineOnes = List.copyOf(feminineOnes);
+            neuterOnes = List.copyOf(neuterOnes);
+        }
+
         public List<String> getOnes(Genders gender) {
             return switch (gender) {
                 case MASCULINE -> masculineOnes;

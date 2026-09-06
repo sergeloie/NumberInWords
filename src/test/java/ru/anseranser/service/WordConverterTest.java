@@ -1,7 +1,6 @@
 package ru.anseranser.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static ru.anseranser.enums.Cases.GENITIVE;
 import static ru.anseranser.enums.Cases.NOMINATIVE;
 import static ru.anseranser.enums.Genders.FEMININE;
 import static ru.anseranser.enums.Genders.MASCULINE;
@@ -11,6 +10,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.anseranser.config.CaseConfig;
 import ru.anseranser.config.CaseConfig.SimpleCase;
+import ru.anseranser.enums.Cases;
 import tools.jackson.databind.json.JsonMapper;
 
 class WordConverterTest {
@@ -61,6 +61,6 @@ class WordConverterTest {
         // 2 003 004 005 в родительном падеже
         assertEquals(
                 "двух миллиардов трёх миллионов четырёх тысяч пяти",
-                converter.toWords(2_003_004_005, GENITIVE, MASCULINE));
+                converter.toWords(2_003_004_005, Cases.GENITIVE, MASCULINE));
     }
 }

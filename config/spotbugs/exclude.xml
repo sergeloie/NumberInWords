@@ -7,4 +7,12 @@
         <Class name="~.*\.BasedevApplication"/>
     </Match>
     -->
+    <!-- SimpleCase is a load-once value holder: record components are wrapped in
+         List.copyOf() by the compact constructor, so accessors cannot expose
+         mutable state. The remaining EI_EXPOSE_REP/EI_EXPOSE_REP2 findings are
+         static-analysis noise (unmodifiable wrapping is not tracked). -->
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+        <Class name="ru.anseranser.config.CaseConfig$SimpleCase"/>
+    </Match>
 </FindBugsFilter>
