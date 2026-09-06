@@ -1,0 +1,36 @@
+#!/bin/sh
+# Gitleaks pre-commit hook - blocks secrets (see docs/agents/guardrails.md)
+#
+# Portable resolution: use `gitleaks` from PATH if present, otherwise fall
+# back to the common WinGet install path. If neither is found, fail loudly
+# with install instructions (a silent skip would let secrets through).
+
+GITLEAKS=""
+if command -v gitleaks >/dev/null 2>&1; then
+  GITLEAKS="$(command -v gitleaks)"
+else
+  # Fallback for machines where gitleaks was installed via `winget install Gitleaks.Gitleaks`
+  # and is not on PATH. Binaries live at $LOCALAPPDATA/Microsoft/WinGet/Packages/<pkg>/gitleaks.exe.
+  if [ -n "$LOCALAPPDATA" ]; then
+    pkgdir="$LOCALAPPDATA/Microsoft/WinGet/Packages"
+    if [ -d "$pkgdir" ]; then
+      for candidate in "$pkgdir"/Gitleaks.Gitleaks_*/gitleaks.exe; do
+        if [ -f "$candidate" ]; then
+          GITLEAKS="$candidate"
+          break
+        fi
+      done
+    fi
+  fi
+fi
+
+if [ -z "$GITLEAKS" ]; then
+  echo "Error: gitleaks not found. Install it and retry the commit."
+  echo "  Windows: winget install Gitleaks.Gitleaks"
+  echo "  macOS:   brew install gitleaks"
+  echo "  Linux:   https://github.com/gitleaks/gitleaks/releases"
+  echo "Hook not bypassed - refusing to commit without secret scan."
+  exit 1
+fi
+
+exec "$GITLEAKS" protect --staged --verbose --redact --no-banner

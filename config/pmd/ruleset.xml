@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<ruleset name="basedev"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+
+    <description>Basedev PMD ruleset - no overlap with Spotless/Checkstyle/ErrorProne</description>
+
+    <!-- Best practices: no GuardLogStatement (noisy) -->
+    <rule ref="category/java/bestpractices.xml">
+        <exclude name="LiteralsFirstInComparisons"/> <!-- ErrorProne already catches ReferenceEquality -->
+        <exclude name="GuardLogStatement"/>
+        <exclude name="LooseCoupling"/>
+        <exclude name="SystemPrintln"/>
+        <exclude name="UseCollectionIsEmpty"/>
+        <exclude name="AbstractClassWithoutAbstractMethod"/>
+        <exclude name="UnitTestShouldIncludeAssert"/>
+        <exclude name="UnitTestShouldUseBeforeAnnotation"/>
+        <exclude name="UnitTestShouldUseAfterAnnotation"/>
+        <exclude name="UnitTestContainsTooManyAsserts"/>
+        <exclude name="UnitTestAssertionsShouldIncludeMessage"/>
+    </rule>
+
+    <!-- Codestyle: high-value only, no noise for the agent -->
+    <rule ref="category/java/codestyle.xml">
+        <exclude name="AtLeastOneConstructor"/>
+        <exclude name="CommentDefaultAccessModifier"/>
+        <exclude name="ConfusingTernary"/>
+        <exclude name="ControlStatementBraces"/> <!-- Checkstyle NeedBraces already -->
+        <exclude name="ExtendsObject"/>
+        <exclude name="ForLoopShouldBeWhileLoop"/>
+        <exclude name="UnnecessaryFullyQualifiedName"/>
+        <exclude name="MethodArgumentCouldBeFinal"/>
+        <exclude name="LocalVariableCouldBeFinal"/>
+        <exclude name="LocalVariableNamingConventions"/>
+        <exclude name="FormalParameterNamingConventions"/>
+        <exclude name="ShortVariable"/>
+        <exclude name="ShortClassName"/>
+        <exclude name="ShortMethodName"/>
+        <exclude name="MethodNamingConventions"/>
+        <exclude name="FieldNamingConventions"/>
+        <exclude name="LinguisticNaming"/>
+    </rule>
+
+    <!-- Design: no extra noise -->
+    <rule ref="category/java/design.xml">
+        <exclude name="UseUtilityClass"/>
+        <exclude name="LawOfDemeter"/>
+        <exclude name="CouplingBetweenObjects"/>
+        <exclude name="ExcessiveImports"/>
+        <exclude name="TooManyMethods"/>
+        <exclude name="TooManyFields"/>
+        <exclude name="LoosePackageCoupling"/>
+        <exclude name="NcssCount"/>
+        <exclude name="AbstractClassWithoutAnyMethod"/>
+    </rule>
+
+    <!-- ErrorProne: PMD's main zone, no noisy ones -->
+    <rule ref="category/java/errorprone.xml">
+        <exclude name="CloseResource"/> <!-- no resources yet -->
+        <exclude name="AvoidCatchingNPE"/>
+        <exclude name="AvoidCatchingThrowable"/>
+        <exclude name="MissingSerialVersionUID"/>
+        <exclude name="AvoidDuplicateLiterals"/>
+    </rule>
+
+    <!-- Multithreading -->
+    <rule ref="category/java/multithreading.xml"/>
+
+    <!-- Documentation: only necessary ones -->
+    <rule ref="category/java/documentation.xml">
+        <exclude name="CommentRequired"/>
+        <exclude name="CommentSize"/>
+        <exclude name="UncommentedEmptyMethodBody"/>
+        <exclude name="UncommentedEmptyConstructor"/>
+    </rule>
+
+</ruleset>

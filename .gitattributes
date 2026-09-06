@@ -1,0 +1,25 @@
+# Text files: LF in the index, checkout per platform (CRLF on Windows)
+* text=auto
+
+# Scripts/hooks - always LF (CRLF breaks shebang in containers and on Linux)
+/gradlew text eol=lf
+/config/githooks/** text eol=lf
+*.sh text eol=lf
+
+# Windows scripts - CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary artifacts - never normalize
+*.jar binary
+*.zip binary
+*.gz binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.pdf binary

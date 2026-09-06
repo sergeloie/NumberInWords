@@ -1,0 +1,5 @@
+# Gitleaks ignore - baseline for false positives
+# Format: path:rule:line  or  fingerprint (see `gitleaks detect --help`)
+# Example: src/main/java/ru/anseranser/basedev/common/exception/GlobalExceptionHandler.java:github-pat:42
+# .tmp/ is gitignored, so `gitleaks detect --source .` (without --no-git) skips it automatically.
+# Reports like .tmp/gitleaks.json contain secrets themselves - don't scan them with --no-git, or delete before next scan.

@@ -1,0 +1,15 @@
+# osv-scanner.toml - baseline for dependency vulnerability false positives.
+# This file starts EMPTY on purpose: advisories ignored here mask real
+# vulnerabilities, so ship no ignores until one is verified as a false
+# positive or an accepted risk on THIS project.
+#
+# Filling the baseline:
+#   1. Run `./gradlew dependencies --write-locks` (generates gradle.lockfile).
+#   2. Run `./gradlew osvScan` and read the report (or `osv-scanner scan source --recursive .`).
+#   3. For every finding that is a false positive or accepted risk, add:
+#
+#      [[IgnoredVulns]]
+#      id = "GHSA-xxxx-xxxx-xxxx"
+#      reason = "short explanation: which fix version, which ticket"
+#
+# Format reference: https://google.github.io/osv-scanner/configuration/

@@ -1,0 +1,10 @@
+<FindBugsFilter>
+    <!-- Add exclusions only after an ADR: first try to fix the code -->
+    <!-- Example: ignore Lombok-generated code -->
+    <!--
+    <Match>
+        <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
+        <Class name="~.*\.BasedevApplication"/>
+    </Match>
+    -->
+</FindBugsFilter>

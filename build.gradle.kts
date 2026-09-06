@@ -9,7 +9,6 @@ plugins {
     id("org.springframework.boot") version "3.5.16"
     id("io.spring.dependency-management") version "1.1.7"
     id("org.sonarqube") version "7.3.1.8318"
-
 }
 group = "ru.anseranser"
 
@@ -54,4 +53,16 @@ sonar {
         property("sonar.projectKey", "sergeloie_NumberInWords")
         property("sonar.organization", "sergeloie")
     }
+}
+
+// Guardrails: tier1-3 checks (Spotless, Checkstyle, PMD, SpotBugs, ErrorProne,
+// ArchUnit, JaCoCo, PIT, Gitleaks, OSV-Scanner, languageCheck). See
+// docs/agents/guardrails.md. SonarQube is NOT touched here - the project has
+// its own SonarCloud config above, the script detects it via hasPlugin.
+apply(from = "gradle/guardrails.gradle.kts")
+
+// Lockfile for reproducible builds + full osvScan (regenerate: ./gradlew
+// dependencies --write-locks).
+dependencyLocking {
+    lockAllConfigurations()
 }
