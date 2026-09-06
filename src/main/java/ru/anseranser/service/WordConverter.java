@@ -20,7 +20,7 @@ public class WordConverter {
 
     public String toWords(long number, Cases caze, Genders gender) {
         if (number == 0) {
-            return cases.get(caze).getOnes(Genders.MASCULINE)[0];
+            return cases.get(caze).getOnes(Genders.MASCULINE).get(0);
         }
 
         SimpleCase theCase = cases.get(caze);
@@ -63,16 +63,16 @@ public class WordConverter {
 
         List<String> parts = new ArrayList<>();
         if (hundreds > 0) {
-            parts.add(theCase.hundreds()[hundreds]);
+            parts.add(theCase.hundreds().get(hundreds));
         }
         if (teens > 0) {
-            parts.add(theCase.teens()[teens]);
+            parts.add(theCase.teens().get(teens));
         } else {
             if (tens > 0) {
-                parts.add(theCase.tens()[tens]);
+                parts.add(theCase.tens().get(tens));
             }
             if (ones > 0) {
-                parts.add(theCase.getOnes(gender)[ones]);
+                parts.add(theCase.getOnes(gender).get(ones));
             }
         }
         return String.join(" ", parts);
@@ -82,9 +82,9 @@ public class WordConverter {
         int ones = onesDigit(trio);
         String suffix =
                 switch (trioIndex) {
-                    case 1 -> theCase.thousands()[ones]; // thousands
-                    case 2 -> theCase.millions()[ones]; // millions
-                    case 3 -> theCase.billions()[ones]; // billions
+                    case 1 -> theCase.thousands().get(ones); // thousands
+                    case 2 -> theCase.millions().get(ones); // millions
+                    case 3 -> theCase.billions().get(ones); // billions
                     default -> "";
                 };
         return suffix.isEmpty() ? "" : " " + suffix;

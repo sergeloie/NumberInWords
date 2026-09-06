@@ -2,6 +2,8 @@ package ru.anseranser.config;
 
 import java.io.IOException;
 import java.util.EnumMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,22 +29,22 @@ public class CaseConfig {
     }
 
     private static SimpleCase loadCase(ObjectMapper mapper, Cases caze) throws IOException {
-        String filename = "cases/" + caze.name().toLowerCase() + ".json";
+        String filename = "cases/" + caze.name().toLowerCase(Locale.ROOT) + ".json";
         ClassPathResource resource = new ClassPathResource(filename);
         return mapper.readValue(resource.getInputStream(), SimpleCase.class);
     }
 
     public record SimpleCase(
-            String[] billions,
-            String[] millions,
-            String[] thousands,
-            String[] hundreds,
-            String[] tens,
-            String[] teens,
-            String[] masculineOnes,
-            String[] feminineOnes,
-            String[] neuterOnes) {
-        public String[] getOnes(Genders gender) {
+            List<String> billions,
+            List<String> millions,
+            List<String> thousands,
+            List<String> hundreds,
+            List<String> tens,
+            List<String> teens,
+            List<String> masculineOnes,
+            List<String> feminineOnes,
+            List<String> neuterOnes) {
+        public List<String> getOnes(Genders gender) {
             return switch (gender) {
                 case MASCULINE -> masculineOnes;
                 case FEMININE -> feminineOnes;
