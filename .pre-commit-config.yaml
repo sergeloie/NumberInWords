@@ -1,0 +1,38 @@
+# .pre-commit-config.yaml
+repos:
+  # 1. Базовая гигиена кода (универсально для всех текстовых файлов)
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0 # Используйте актуальную версию
+    hooks:
+      - id: trailing-whitespace --markdown-linebreak-ext=md     # Удаляет пробелы в конце строк
+      - id: end-of-file-fixer        # Добавляет пустую строку в конец файла, если её нет
+      - id: check-yaml               # Проверяет синтаксис application.yml / .yaml файлов
+      - id: check-json               # Проверяет синтаксис JSON файлов
+      - id: check-toml               # Attempts to load all TOML files to verify syntax.
+      - id: check-xml                # Attempts to load all xml files to verify syntax.
+      - id: pretty-format-json --autofix --no-sort-keys # Checks that all your JSON files are pretty.
+      - id: check-merge-conflict     # Запрещает коммиты с незакрытыми маркерами конфликтов (<<<<<<)
+      - id: check-case-conflict      # Ищет файлы, имена которых отличаются только регистром (проблема для Windows/Mac)
+      - id: check-added-large-files  # Запрещает коммитить файлы тяжелее 500 КБ (защита от случайного коммита бинарников)
+      - id: check-byte-order-marker  # Запрещает BOM (часто портит файлы в Windows)
+      - id: fix-byte-order-marker # removes UTF-8 byte order marker
+      - id: check-illegal-windows-names # Check for files that cannot be created on Windows.
+      - id: detect-private-key # Checks for the existence of private keys.
+
+  # 2. Защита от утечки секретов (пароли, токены, ключи)
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.2 # Актуальная версия на 2026 год
+    hooks:
+      - id: gitleaks
+        args: ["--verbose", "--redact"] # Подробный вывод и маскировка найденных секретов в логе
+
+  # 4. Интеграция с Java-инструментами (Spotless)
+  # Заставляет агента форматировать код ПЕРЕД коммитом, используя ваши правила Maven/Gradle
+  - repo: local
+    hooks:
+      - id: spotless-apply
+        name: Spotless Apply (Java Formatter)
+        entry: bash -c './mvnw spotless:apply || ./gradlew spotlessApply' # Адаптируйте под свой билд-инструмент
+        language: system
+        files: \.(java|groovy|kt|yml|yaml|md)$ # Только для нужных расширений
+        pass_filenames: false

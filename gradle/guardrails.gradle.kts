@@ -382,7 +382,7 @@ tasks.register("osvScan", Exec::class) {
 }
 
 /** Extensions where Russian (Cyrillic) text is allowed: documentation and resources. */
-val russianAllowedExtensions = setOf("md", "txt", "json", "java", "html")
+val russianAllowedExtensions = setOf("md", "txt", "json", "java", "html", "yml", "yaml")
 
 /** Repo-relative paths skipped by languageCheck: generated Gradle wrapper scripts keep (C) by design. */
 val languageCheckSkipPaths = setOf("gradlew", "gradlew.bat")
